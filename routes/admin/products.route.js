@@ -4,7 +4,7 @@ const controller = require("../../controllers/admin/products.controller")
 const validate = require("../../validates/admin/product.validate")
 
 const multer  = require('multer')
-const upload = multer()
+const upload = multer({ storage: multer.memoryStorage() });
 
 const uploadClound = require("../../middleware/admin/uploadCloud.middleware")
 
