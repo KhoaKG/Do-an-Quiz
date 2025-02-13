@@ -9,7 +9,6 @@ var flash = require('express-flash')
 const cookieParser = require("cookie-parser")
 const session = require("express-session")
 
-
 app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug')
 
