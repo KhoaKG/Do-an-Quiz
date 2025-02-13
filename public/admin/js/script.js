@@ -181,3 +181,35 @@ if(uploadImage){
 }
 // end upload image
 
+// Sort
+const sort = document.querySelector("[sort]")
+if(sort){
+    let url = new URL(window.location.href)
+    const sortSelect = document.querySelector("[sort-select]")
+    const sortClear = document.querySelector("[sort-clear]")
+    sortSelect.addEventListener("change",(e)=>{
+        const value = e.target.value
+        const [sortKey, sortValue] = value.split("-")
+        console.log(value);
+        
+        url.searchParams.set("sortKey", sortKey)
+        url.searchParams.set("sortValue", sortValue)
+        window.location.href = url
+    })
+    // xoá sắp xếp
+    sortClear.addEventListener("click", ()=>{
+        url.searchParams.delete("sortKey")
+        url.searchParams.delete("sortValue")
+        window.location.href = url
+})
+    // Thêm selected cho option
+    const sortKey = url.searchParams.get("sortKey")
+    const sortValue = url.searchParams.get("sortValue")
+    if(sortValue && sortKey){
+        const stringSort = `${sortKey}-${sortValue}`
+        const optionSelected = sortSelect.querySelector(`option[value='${stringSort}']`)
+        optionSelected.selected = true
+    }
+    }
+
+// End Sort

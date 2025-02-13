@@ -28,6 +28,7 @@ app.use(cookieParser('keyboard cat'));
 app.use(session({ cookie: { maxAge: 60000 }}));
 app.use(flash());
 
+
 const route = require("./routes/client/index.route")
 route(app)
 
