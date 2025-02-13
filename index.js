@@ -36,4 +36,6 @@ const routeAdmin = require("./routes/admin/index.route")
 routeAdmin(app)
 
 
-module.exports = app; // Export app, không dùng app.listen()
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
