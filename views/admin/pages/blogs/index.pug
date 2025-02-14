@@ -6,7 +6,7 @@ include ../../mixins/formChangeMulti.pug
 include ../../mixins/alert.pug
 include ../../mixins/moment.pug
 block main 
-    if(role.permissions.includes("products_view"))
+    if(role.permissions.includes("blogs_view"))
         +alert-success()
         +alert-error()
         .card.mb-3
@@ -43,10 +43,10 @@ block main
                 .card-body 
                     .row
                         .col-8
-                            if(role.permissions.includes("products_edit"))
+                            if(role.permissions.includes("blogs_edit"))
                                 +formChangeMulti(`${prefixAdmin}/blogs/change-multi?_method=PATCH`)
                         .col-4
-                            if(role.permissions.includes("products_create"))
+                            if(role.permissions.includes("blogs_create"))
                                 a(
                                     href=`${prefixAdmin}/blogs/create` 
                                     class="btn btn-outline-success"
@@ -93,7 +93,7 @@ block main
                                         name="position"
                                         )
                                     td
-                                        if(role.permissions.includes("products_edit"))
+                                        if(role.permissions.includes("blogs_edit"))
                                             if(item.status == "active")
                                                 a(href="javascript:;" 
                                                 class="badge badge-success" 
@@ -128,16 +128,16 @@ block main
                                             p 
                                                 +formatDateTime(updatedBy.updateAt)
                                     td
-                                        //- if(role.permissions.includes("blogs_edit"))
-                                        a(
-                                            href=`${prefixAdmin}/blogs/edit/${item.id}`
-                                            class="btn btn-warning btn-sm"
-                                            ) Sửa 
-                                        //- if(role.permissions.includes("blogs_delete"))
-                                        button(class="btn btn-danger btn-sm m1-1"
-                                        data-id=item.id
-                                        button-delete
-                                        ) Xóa
+                                        if(role.permissions.includes("blogs_edit"))
+                                            a(
+                                                href=`${prefixAdmin}/blogs/edit/${item.id}`
+                                                class="btn btn-warning btn-sm"
+                                                ) Sửa 
+                                        if(role.permissions.includes("blogs_delete"))
+                                            button(class="btn btn-danger btn-sm m1-1"
+                                            data-id=item.id
+                                            button-delete
+                                            ) Xóa
                                         a(
                                             href=`${prefixAdmin}/blogs/detail/${item.id}`
                                             class="btn btn-secondary btn-sm"

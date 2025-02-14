@@ -152,6 +152,30 @@ block main
                         each item in records
                             td(class= "text-center")
                                 input(type="checkbox")
+                    tr
+                        //- Danh sách sản phẩm
+                        td(colspan="4")
+                            b   Danh sách bài viết
+                    tr(data-name="blogs_view")    
+                        td Xem
+                        each item in records
+                            td(class= "text-center")
+                                input(type="checkbox")
+                    tr(data-name="blogs_create")
+                        td Thêm mới
+                        each item in records
+                            td(class= "text-center")
+                                input(type="checkbox")
+                    tr(data-name="blogs_edit")
+                        td Sửa
+                        each item in records
+                            td(class= "text-center")
+                                input(type="checkbox")
+                    tr(data-name="blogs_delete")
+                        td Xoá
+                        each item in records
+                            td(class= "text-center")
+                                input(type="checkbox")
 
         else
             button  
