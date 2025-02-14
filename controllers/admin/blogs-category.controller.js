@@ -1,13 +1,12 @@
-const ProductsCategory = require("../../model/products-category.model")
+const BlogsCategory = require("../../model/blogs-category.model")
 const systemConfig = require("../../config/system")
 const createTreeHelper = require("../../helper/createTree")
 const Account = require("../../model/accounts.model")
-// [GET]: /admin/products-category
 module.exports.index = async (req, res) => {
     let find = {
         deleted: false,
     }
-    const records = await ProductsCategory.find(find)
+    const records = await BlogsCategory.find(find)
     for(const record of records){
         // Lấy ra thông tin người tạo
         const user = await Account.findOne({
@@ -27,45 +26,30 @@ module.exports.index = async (req, res) => {
         }
     }
     const newRecords = createTreeHelper.tree(records)
-    res.render("admin/pages/products-category/index",{
-        pageTitle: "Trang danh mục sản phẩm",
+    res.render('admin/pages/blogs-category/index',{
+        pageTitle: "Trang danh mục bài viết",
         records: newRecords
     })
 }
 
-module.exports.changeStatus = async (req, res)=>{
-    const status = req.params.status
-    const id = req.params.id
-    const updatedBy = {
-        account_id: res.locals.user.id,
-        updateAt: new Date()
-    }
-    await ProductsCategory.updateOne({_id: id},{status: status, $push: {updatedBy: updatedBy}}, )
-
-    req.flash("success", "Cập nhật status thành công")
-    res.redirect("back")
-}
-
-
-// [GET]: /admin/products-category/create
+// [GET]: /admin/blogs-category/create
 module.exports.create = async (req, res) => {
     let find = {
         deleted: false,
     }
-
-    const records = await ProductsCategory.find(find)
+    const records = await BlogsCategory.find(find)
     const newRecords = createTreeHelper.tree(records)
-    res.render("admin/pages/products-category/create",{
-        pageTitle: "Trang tạo danh mục sản phẩm",
+    res.render("admin/pages/blogs-category/create",{
+        pageTitle: "Trang tạo danh mục bài viết",
         records: newRecords
     })
 } 
 
 
-// [POST]: /admin/products-category/create
+// [POST]: /admin/blogs-category/create
 module.exports.createPost = async (req,res) =>{
     if(req.body.position == ""){
-        const countProducts = await ProductsCategory.countDocuments()
+        const countProducts = await BlogsCategory.countDocuments()
         req.body.position = countProducts + 1
     }else{
         req.body.position = parseInt(req.body.position)
@@ -74,23 +58,22 @@ module.exports.createPost = async (req,res) =>{
         account_id: res.locals.user.id,
     }
     
-    const record = new ProductsCategory(req.body)
+    const record = new BlogsCategory(req.body)
     await record.save()
-    res.redirect(`${systemConfig.prefixAdmin}/products-category`)
+    res.redirect(`${systemConfig.prefixAdmin}/blogs-category`)
 }
 
-// [GET]: /admin/products-category/edit/:id
 module.exports.edit = async (req, res) => {
     const id = req.params.id
-    const data = await ProductsCategory.findOne({ _id: id }, {deleted: false })
+    const data = await BlogsCategory.findOne({ _id: id }, {deleted: false })
     // Lấy ra data để gán cho danh mục cha
-    const records = await ProductsCategory.find({
+    const records = await BlogsCategory.find({
         deleted: false,
     })
     const newRecords = createTreeHelper.tree(records)
     // End Lấy ra data để gán cho danh mục cha
-    res.render("admin/pages/products-category/edit",{
-        pageTitle: "Chỉnh sửa danh mục sản phẩm",
+    res.render("admin/pages/blogs-category/edit",{
+        pageTitle: "Chỉnh sửa danh mục bài viết",
         data: data,
         records: newRecords
     })
@@ -107,7 +90,7 @@ module.exports.editPatch = async (req, res) => {
             account_id: res.locals.user.id,
             updateAt: new Date()
         }
-        await ProductsCategory.updateOne({_id: id}, {
+        await BlogsCategory.updateOne({_id: id}, {
             ...req.body,
             $push: {updatedBy: updatedBy}
         })
@@ -115,18 +98,31 @@ module.exports.editPatch = async (req, res) => {
     } catch (error) {
         req.flash("error", `Cập nhật thất bại`)
     }
-    res.redirect(`${systemConfig.prefixAdmin}/products-category`)
+    res.redirect(`${systemConfig.prefixAdmin}/blogs-category`)
 } 
 
 module.exports.deleteItem = async (req,res) =>{
     const id = req.params.id
-    await ProductsCategory.updateOne({_id: id},{
+    await BlogsCategory.updateOne({_id: id},{
         deleted: true,
         deletedBy:{
             account_id: res.locals.user.id,
             deleteAt: new Date()
         }
     })
+
+    req.flash("success", "Cập nhật status thành công")
+    res.redirect("back")
+}
+
+module.exports.changeStatus = async (req, res)=>{
+    const status = req.params.status
+    const id = req.params.id
+    const updatedBy = {
+        account_id: res.locals.user.id,
+        updateAt: new Date()
+    }
+    await BlogsCategory.updateOne({_id: id},{status: status, $push: {updatedBy: updatedBy}}, )
 
     req.flash("success", "Cập nhật status thành công")
     res.redirect("back")

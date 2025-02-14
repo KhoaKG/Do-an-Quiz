@@ -8,6 +8,7 @@ var methodOverride = require('method-override')
 var flash = require('express-flash')
 const cookieParser = require("cookie-parser")
 const session = require("express-session")
+const moment = require("moment")
 
 app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug')
@@ -27,6 +28,7 @@ app.use(cookieParser('keyboard cat'));
 app.use(session({ cookie: { maxAge: 60000 }}));
 app.use(flash());
 
+app.locals.moment = moment
 
 const route = require("./routes/client/index.route")
 route(app)

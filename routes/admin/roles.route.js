@@ -16,4 +16,6 @@ router.get('/permissions', controller.permissions)
 
 router.patch('/permissions', controller.permissionsPatch)
 
+router.delete('/delete/:id', controller.deleteItem)
+
 module.exports = router

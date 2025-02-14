@@ -1,9 +1,9 @@
-const Product = require("../../model/products.model")
+const Blog = require("../../model/blogs.model")
 const filterStatusHelper = require("../../helper/filterStatus")
 const searchHelper = require("../../helper/search")
 const paginationHelper = require("../../helper/pagination")
 const systemConfig = require("../../config/system")
-const ProductsCategory = require("../../model/products-category.model")
+const BlogsCategory = require("../../model/blogs-category.model")
 const createTreeHelper = require("../../helper/createTree")
 const Account = require("../../model/accounts.model")
 module.exports.index = async (req, res) => {
@@ -25,7 +25,7 @@ module.exports.index = async (req, res) => {
     }
     // End Search
     // Pagination
-    const countProducts = await Product.countDocuments(find)
+    const countProducts = await Blog.countDocuments(find)
     let objectPagination = paginationHelper({
         limitItems: 4,
         currentPage: 1
@@ -40,7 +40,7 @@ module.exports.index = async (req, res) => {
     }
     // End Sort
 
-    const products = await Product.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip).sort(sort)
+    const products = await Blog.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip).sort(sort)
     // Lấy ra tên 
     for(const product of products){
         // Lấy ra thông tin người tạo
@@ -63,7 +63,7 @@ module.exports.index = async (req, res) => {
     // End
 
 
-    res.render('admin/pages/products/index', { 
+    res.render('admin/pages/blogs/index', { 
         title: 'Hey',
         products: products,
         filterStatus: filterStatus,
@@ -79,7 +79,7 @@ module.exports.changeStatus = async (req, res)=>{
         account_id: res.locals.user.id,
         updateAt: new Date()
     }
-    await Product.updateOne({_id: id},{status: status, $push: {updatedBy: updatedBy}})
+    await Blog.updateOne({_id: id},{status: status, $push: {updatedBy: updatedBy}})
     req.flash("success", "Cập nhật status thành công")
     res.redirect("back")
 }
@@ -92,15 +92,15 @@ module.exports.changeMulti = async (req,res) =>{
     }
     switch (type) {
         case "active":
-            await Product.updateMany({ _id: { $in: ids } }, { status: "active", $push: {updatedBy: updatedBy}});
+            await Blog.updateMany({ _id: { $in: ids } }, { status: "active", $push: {updatedBy: updatedBy}});
             req.flash("success", "Cập nhật status thành công")
             break;
         case "inactive":
-            await Product.updateMany({_id: {$in: ids}},{status: "inactive", $push: {updatedBy: updatedBy}},)
+            await Blog.updateMany({_id: {$in: ids}},{status: "inactive", $push: {updatedBy: updatedBy}},)
             req.flash("success", "Cập nhật status thành công")
             break; 
         case "delete-all":
-            await Product.updateMany(
+            await Blog.updateMany(
                 {_id: {$in: ids}},
                 {
                     deleted: true, 
@@ -117,7 +117,7 @@ module.exports.changeMulti = async (req,res) =>{
             for(const item of ids){
                 let[id,position] = item.split("-")
                 position = parseInt(position)
-                await Product.updateOne({_id: id},{position: position, $push: {updatedBy: updatedBy}},)
+                await Blog.updateOne({_id: id},{position: position, $push: {updatedBy: updatedBy}},)
             }
             req.flash("success", "Cập nhật status thành công")
             break;
@@ -128,7 +128,7 @@ module.exports.changeMulti = async (req,res) =>{
 }
 module.exports.deleteItem = async (req,res) =>{
     const id = req.params.id
-    await Product.updateOne({_id: id},{
+    await Blog.updateOne({_id: id},{
         deleted: true,
         deletedBy:{
             account_id: res.locals.user.id,
@@ -145,9 +145,9 @@ module.exports.create = async (req,res) =>{
     let find = {
         deleted: false,
     }
-    const category = await ProductsCategory.find(find)
+    const category = await BlogsCategory.find(find)
     const newCategory = createTreeHelper.tree(category)
-    res.render("admin/pages/products/create",{
+    res.render("admin/pages/blogs/create",{
         pageTitle: "Trang tạo sản phẩm",
         category: newCategory
     })
@@ -155,11 +155,8 @@ module.exports.create = async (req,res) =>{
 
 // [POST]: /admin/products/create
 module.exports.createPost = async (req,res) =>{
-    req.body.price = parseInt(req.body.price)
-    req.body.discountPercentage = parseInt(req.body.discountPercentage)
-    req.body.stock = parseInt(req.body.stock)
     if(req.body.position == ""){
-        const countProducts = await Product.countDocuments()
+        const countProducts = await Blog.countDocuments()
         req.body.position = countProducts + 1
     }else{
         req.body.position = parseInt(req.body.position)
@@ -167,9 +164,9 @@ module.exports.createPost = async (req,res) =>{
     req.body.createdBy = {
         account_id: res.locals.user.id,
     }
-    const product = new Product(req.body)
+    const product = new Blog(req.body)
     await product.save()
-    res.redirect(`${systemConfig.prefixAdmin}/products`)
+    res.redirect(`${systemConfig.prefixAdmin}/blogs`)
 }
 
 // [GET]: /admin/products/edit/:id
@@ -179,45 +176,39 @@ module.exports.edit = async (req,res) =>{
             deleted:false,
             _id: req.params.id
         }
-        const category = await ProductsCategory.find({
+        const category = await BlogsCategory.find({
             deleted: false,
         })
         const newCategory = createTreeHelper.tree(category)
     
-        const product = await Product.findOne(find)
-        res.render("admin/pages/products/edit",{
+        const product = await Blog.findOne(find)
+        res.render("admin/pages/blogs/edit",{
             pageTitle: "Trang chỉnh sửa sản phẩm",
             product: product,
             category: newCategory
         })
     } catch (error) {
-        res.redirect(`${systemConfig.prefixAdmin}/products`)
+        res.redirect(`${systemConfig.prefixAdmin}/blogs`)
     }
 }
 
 // [PATCH]: /admin/products/edit/:id
 module.exports.editPatch = async (req,res) =>{
     const id = req.params.id
-    req.body.price = parseInt(req.body.price)
-    req.body.discountPercentage = parseInt(req.body.discountPercentage)
-    req.body.stock = parseInt(req.body.stock)
     req.body.position = parseInt(req.body.position)
-    if(req.file){
-        req.flash("success", `Cập nhật thành công`)
-    }
     try {
         const updatedBy = {
             account_id: res.locals.user.id,
             updateAt: new Date()
         }
-        await Product.updateOne({_id: id}, {
+        await Blog.updateOne({_id: id}, {
             ...req.body,
             $push: {updatedBy: updatedBy}
         })
     } catch (error) {
         req.flash("error", `Cập nhật thất bại`)
     }
-    res.redirect(`${systemConfig.prefixAdmin}/products`)
+    res.redirect(`${systemConfig.prefixAdmin}/blogs`)
 }
 
 // [GET]: /admin/products/detail/:id
@@ -227,12 +218,12 @@ module.exports.detail = async (req,res) =>{
             deleted:false,
             _id: req.params.id
         }
-        const product = await Product.findOne(find)
-        res.render("admin/pages/products/detail",{
+        const product = await Blog.findOne(find)
+        res.render("admin/pages/blogs/detail",{
             pageTitle: product.title,
             product: product
         })
     } catch (error) {
-        res.redirect(`${systemConfig.prefixAdmin}/products`)
+        res.redirect(`${systemConfig.prefixAdmin}/blogs`)
     }
 }	

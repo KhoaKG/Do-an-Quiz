@@ -1,18 +1,18 @@
 extends ../../layouts/default.pug
-include ../../mixins/table-tree
+include ../../mixins/table-tree-blogs.pug
 block main
-    if(role.permissions.includes("products-category_view"))
+    if(role.permissions.includes("blogs-category_view"))
         .card.mb-3
-            .card-header Danh mục sản phẩm
+            .card-header Danh mục bài viết
                 .card-body 
                     .row
                         .col-8
                         .col-4
-                            if(role.permissions.includes("products-category_create"))
+                            if(role.permissions.includes("blogs-category_create"))
                                 a(
-                                    href=`${prefixAdmin}/products-category/create` 
-                                    class="btn btn-outline-success"
-                                    ) + Thêm mới
+                                href=`${prefixAdmin}/blogs-category/create` 
+                                class="btn btn-outline-success"
+                                ) + Thêm mới
                     table(
                         class="table table-hover table-sm"
                         checkbox-multi
@@ -30,16 +30,15 @@ block main
                                 th Người cập nhật
                                 th Hành động
                         tbody 
-                            +table-tree(records)
+                            +table-tree-blogs(records)
         form(action=""
             method="POST"
             id="form-change-status"
-            data-path=`${prefixAdmin}/products-category/change-status`
+            data-path=`${prefixAdmin}/blogs-category/change-status`
         ) 
 
         form(action=""
             method="POST"
             id="form-delete-status"
-            data-path=`${prefixAdmin}/products-category/delete`
+            data-path=`${prefixAdmin}/blogs-category/delete`
         ) 
-    script(src="/admin/js/products-category.js") 

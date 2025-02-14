@@ -1,6 +1,6 @@
 const express = require('express')
-const router = express.Router()
-const controller = require('../../controllers/admin/products-category.controller')
+const route = express.Router()
+const controller = require("../../controllers/admin/blogs-category.controller")
 
 const validate = require("../../validates/admin/product.validate")
 
@@ -9,30 +9,28 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 const uploadCloud = require("../../middleware/admin/uploadCloud.middleware")
 
-router.get('/', controller.index)
+route.get('/', controller.index)
 
-router.patch('/change-status/:status/:id', controller.changeStatus)
+route.get('/create', controller.create)
 
-router.get('/create', controller.create)
-
-router.post('/create', 
+route.post('/create', 
     upload.single('thumbnail'),
     uploadCloud.upload,
     validate.createPost, 
     controller.createPost
 )
 
-router.get('/edit/:id', controller.edit)
+route.get('/edit/:id', controller.edit)
 
-router.patch('/edit/:id', 
+route.patch('/edit/:id', 
     upload.single('thumbnail'),
     uploadCloud.upload,
     validate.createPost, 
     controller.editPatch
 )
 
-router.delete('/delete/:id', controller.deleteItem)
+route.delete('/delete/:id', controller.deleteItem)
 
+route.patch('/change-status/:status/:id', controller.changeStatus)
 
-
-module.exports = router
+module.exports = route

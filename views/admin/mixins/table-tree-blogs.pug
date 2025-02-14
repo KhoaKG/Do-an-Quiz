@@ -1,5 +1,5 @@
 include ./moment.pug
-mixin table-tree(items, level=1)
+mixin table-tree-blogs(items, level=1)
     each item,index in items
         -   const prefix = Array(level + 1).join("-- ");
         tr 
@@ -24,7 +24,7 @@ mixin table-tree(items, level=1)
                 name="position"
                 )
             td
-                if(role.permissions.includes("products-category_edit"))
+                if(role.permissions.includes("blogs-category_edit"))
                     if(item.status == "active")
                         a(
                         href="javascript:;"
@@ -64,19 +64,19 @@ mixin table-tree(items, level=1)
 
             td
                 a(
-                    href=`${prefixAdmin}/products-category/detail/${item.id}`
+                    href=`${prefixAdmin}/blogs-category/detail/${item.id}`
                     class="btn btn-secondary btn-sm"
                     ) Chỉnh sửa
-                if(role.permissions.includes("products-category_edit"))
+                if(role.permissions.includes("blogs-category_edit"))
                     a(
-                        href=`${prefixAdmin}/products-category/edit/${item.id}`
+                        href=`${prefixAdmin}/blogs-category/edit/${item.id}`
                         class="btn btn-warning btn-sm"
                         ) Sửa 
-                if(role.permissions.includes("products-category_delete"))
+                if(role.permissions.includes("blogs-category_delete"))
                     button(class="btn btn-danger btn-sm m1-1"
-                    data-id=item.id
-                    button-delete
+                        data-id=item.id
+                        button-delete
                     ) Xóa
                     
         if item.children && item.children.length > 0
-            +table-tree(item.children,level + 1)
+            +table-tree-blogs(item.children,level + 1)
