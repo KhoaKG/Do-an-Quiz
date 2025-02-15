@@ -40,7 +40,8 @@ const productsSchema = new mongoose.Schema({
             account_id: String,
             updateAt: Date
         }    
-    ]        
+    ],
+    featured: String,
 },{
     timestamps: true
 });

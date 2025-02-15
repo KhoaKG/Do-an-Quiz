@@ -1,13 +1,11 @@
 const Product = require("../../model/products.model")
+const productsHelper = require("../../helper/products")
 module.exports.index = async (req, res) => {
     let find = {
         deleted: false
     }
     const products = await Product.find(find)
-    const newProducts = products.map(item=>{
-        item.priceNew = (item.price*(100 - item.discountPercentage)/100).toFixed()
-        return item
-    })
+    const newProducts = productsHelper.priceNewProducts(products)
 
     res.render('client/pages/products/index', { 
         title: 'Hey', 
