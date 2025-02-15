@@ -9,6 +9,7 @@ const authMiddleware = require("../../middleware/admin/auth.middleware")
 const blogsCategoryRoute = require("./blogs-category.route")
 const blogsRoute = require("./blogs.route")
 const myAccountRoute = require("./my-account.route")
+const settingRoute = require("./setting.route")
 module.exports = (app)=>{
     const DATA_PATH = systemConfig.prefixAdmin
     app.use(DATA_PATH + "/dashboard", authMiddleware.requireAuth,dashboardRoute)
@@ -26,6 +27,8 @@ module.exports = (app)=>{
     app.use(DATA_PATH+ "/blogs", authMiddleware.requireAuth, blogsRoute)
     
     app.use(DATA_PATH+ "/my-account", authMiddleware.requireAuth, myAccountRoute)
+
+    app.use(DATA_PATH+ "/settings", authMiddleware.requireAuth, settingRoute)
 
     app.use(DATA_PATH+ "/auth", authRoute)
 }

@@ -4,6 +4,7 @@ const md5 = require('md5');
 const generateHelper = require("../../helper/generate")
 const ForgotPassword = require("../../model/forgot-password.model")
 const sendMailHelper = require("../../helper/sendMail")
+const Cart = require("../../model/cart.model")
 module.exports.register = async (req, res) => {
     res.render("client/pages/user/register", {
     	pageTitle: "Đăng ký tài khoản",
@@ -58,6 +59,16 @@ module.exports.loginPost = async (req, res) => {
 	}
  
     res.cookie("tokenUser", user.tokenUser)
+
+	// Lưu user_id vào collection carts
+ 
+	await Cart.updateOne({
+    	_id: req.cookies.cartId
+	}, {
+        user_id: user.id
+	})
+ 
+	// end
  
     res.redirect("/")
 }
@@ -159,4 +170,10 @@ module.exports.resetPasswordPost = async (req, res) => {
 	req.flash("success", "Đổi mật khẩu thành công!")
  
 	res.redirect("/")
+}
+
+module.exports.info = async (req, res) => {
+    res.render("client/pages/user/info", {
+    	pageTitle: "Thông tin tài khoản",
+	})
 }

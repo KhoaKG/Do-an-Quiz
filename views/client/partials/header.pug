@@ -2,10 +2,10 @@ include ../mixins/sub-menu.pug
 header.header 
   .container
     .row.align-items-center
-      .col-3 
+      .col-3
         .inner-logo
           a(href="/")
-            img(src="/img/logo.svg" alt="logo")
+            img(src=settingGeneral.logo alt="logo")
       .col-5 
         form(
           action="/search" 
@@ -39,6 +39,8 @@ header.header
             li
               a(href="/cart") Giỏ hàng(#{minicart ? minicart.totalQuantity : "0"})
             if(user)
+              li
+                a(href="/user/info") #{user.fullname}
               li
                 a(href="/user/logout") Đăng xuất
             else

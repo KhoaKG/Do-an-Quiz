@@ -1,5 +1,5 @@
 module.exports.registerPost = (req, res, next) => {
-	if (!req.body.fullName) {
+	if (!req.body.fullname) {
         req.flash("error", "Vui lòng nhập Họ tên!")
         res.redirect("back")
     	return
