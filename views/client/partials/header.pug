@@ -15,4 +15,8 @@ header.header
               - const pathProduct = "/products"
               a(href= pathProduct) Sản phẩm
               +sub-menu(layoutProductsCategory, pathProduct)
+            li(class="sub-menu")
+              - const pathBlog = "/blogs"
+              a(href= pathBlog) Tin tức
+              +sub-menu(layoutBlogsCategory, pathBlog)
 
