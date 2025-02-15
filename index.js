@@ -30,12 +30,20 @@ app.use(flash());
 
 app.locals.moment = moment
 
+
+
 const route = require("./routes/client/index.route")
 route(app)
 
 const routeAdmin = require("./routes/admin/index.route")
 routeAdmin(app)
 
+
+app.get("*", (req, res) => {
+  res.render("client/pages/errors/404", {
+	pageTitle: "404 not found",
+  })
+})
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

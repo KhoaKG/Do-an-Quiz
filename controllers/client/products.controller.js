@@ -4,16 +4,22 @@ const ProductsCategory = require("../../model/products-category.model")
 const productsCategoryHelper = require("../../helper/products-category")
 
 module.exports.index = async (req, res) => {
-    let find = {
-        deleted: false
+    try {
+        let find = {
+            deleted: false,
+            status: "active"
+        }
+        const products = await Product.find(find)
+        const newProducts = productsHelper.priceNewProducts(products)
+    
+        res.render('client/pages/products/index', { 
+            title: 'Hey', 
+            products: newProducts
+        })
+    } catch (error) {
+        res.redirect(`/products`)
     }
-    const products = await Product.find(find)
-    const newProducts = productsHelper.priceNewProducts(products)
-
-    res.render('client/pages/products/index', { 
-        title: 'Hey', 
-        products: newProducts
-    })
+    
 }
 
 // [GET] /products/:slug
@@ -51,15 +57,21 @@ module.exports.category = async (req, res) => {
 	    status: "active", 
         deleted: false
     })
-    const listSubCategory = await productsCategoryHelper.getSubCategory(category.id)
-    const listSubCategoryId =  listSubCategory.map(item=>item.id)
+    if(category){
+        const listSubCategory = await productsCategoryHelper.getSubCategory(category.id)
+        const listSubCategoryId =  listSubCategory.map(item=>item.id)
 
-    const products = await Product.find({
-        product_category_id: {$in: [category.id, ...listSubCategoryId]},
-        deleted: false
-    }).sort({position: "desc"})
+        const products = await Product.find({
+            product_category_id: {$in: [category.id, ...listSubCategoryId]},
+            deleted: false
+        }).sort({position: "desc"})
 
-    const newProducts = productsHelper.priceNewProducts(products)
+        const newProducts = productsHelper.priceNewProducts(products)
+    }   else{
+        res.redirect(`/products`)
+        return
+    }
+    
 
     res.render("client/pages/products/index",{
         pageTitle: category.title,

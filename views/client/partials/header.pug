@@ -30,7 +30,7 @@ header.header
               a(href="/") Trang chủ
             li(class="sub-menu")
               - const pathProduct = "/products"
-              a(href= pathProduct) Sản phẩm
+              a(href= pathProduct) Quiz
               +sub-menu(layoutProductsCategory, pathProduct)
             li(class="sub-menu")
               - const pathBlog = "/blogs"
@@ -41,6 +41,8 @@ header.header
             if(user)
               li
                 a(href="/user/info") #{user.fullname}
+              li
+                a(href="/user/info") Quiz của tôi
               li
                 a(href="/user/logout") Đăng xuất
             else
