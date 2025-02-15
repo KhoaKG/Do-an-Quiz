@@ -6,7 +6,24 @@ header.header
         .inner-logo
           a(href="/")
             img(src="/img/logo.svg" alt="logo")
-      .col-9 
+      .col-5 
+        form(
+          action="/search" 
+          method="GET"
+        )
+          div(class="form-group d-flex mb-®")
+            input(
+              type="text"
+              placeholder="Nhập từ khóa..."
+              class="form-control" 
+              name="keyword"
+              value = keyword
+            )
+            button(
+              type="submit" 
+              class="btn btn-primary"
+            ) Tim
+      .col-4 
         .inner-menu
           ul
             li
@@ -19,4 +36,7 @@ header.header
               - const pathBlog = "/blogs"
               a(href= pathBlog) Tin tức
               +sub-menu(layoutBlogsCategory, pathBlog)
+            li
+              a(href="/cart") Giỏ hàng(#{minicart ? minicart.totalQuantity : "0"})
+
 
