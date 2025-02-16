@@ -16,7 +16,7 @@
     "braces": "^3.0.3",
     "chokidar": "^4.0.3",
     "cloudinary": "^2.5.1",
-    "connect-redis": "^8.0.1",
+    "connect-redis": "^5.2.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",

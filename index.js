@@ -12,8 +12,6 @@ const moment = require("moment")
 const { Server } = require("socket.io");
 const http = require('http');
 var cors = require('cors')
-const redis = require('redis');
-const connectRedis = require('connect-redis');
 
 app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug')
@@ -31,20 +29,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(cookieParser('keyboard cat'));
 
-const redisClient = redis.createClient({
-  url: 'redis://localhost:6379',  // Kết nối Redis từ URL hoặc localhost
-});
-
-const RedisStore = connectRedis(session);  // Đây là cách đúng
-
-redisClient.connect().catch(console.error);
-
 app.use(session({
-  store: new RedisStore({ client: redisClient }),
-  cookie: { maxAge: 60000 },
-  secret: 'your-secret-key',
-  resave: false,
-  saveUninitialized: true
+  cookie: {maxAge: 60000 },
 }));
 
 app.use(flash());
