@@ -42,5 +42,8 @@
   },
   "devDependencies": {
     "forever": "^4.0.3"
+  },
+  "engines": {
+    "node": "20.x"
   }
 }
