@@ -7,7 +7,7 @@ const systemConfig = require('./config/system')
 var methodOverride = require('method-override')
 var flash = require('express-flash')
 const cookieParser = require("cookie-parser")
-const session = require("express-session")
+var session = require('cookie-session');
 const moment = require("moment")
 const { Server } = require("socket.io");
 const http = require('http');
@@ -29,14 +29,16 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(cookieParser('keyboard cat'));
 
-app.use(
-  session({
-    secret: "your-secret-key",  // Thay bằng chuỗi bí mật
-    resave: false,  // Không lưu session nếu không thay đổi
-    saveUninitialized: false,  // Không tạo session mới nếu không cần thiết
-    cookie: { secure: false },  // Đặt thành `true` nếu chạy HTTPS
-  })
-);
+app.use(session({
+  cookie:{
+      secure: true,
+      maxAge:60000
+         },
+  store: new RedisStore(),
+  secret: 'secret',
+  saveUninitialized: true,
+  resave: false
+  }));
 
 app.use(flash());
 
