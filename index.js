@@ -9,6 +9,8 @@ var flash = require('express-flash')
 const cookieParser = require("cookie-parser")
 const session = require("express-session")
 const moment = require("moment")
+const { Server } = require("socket.io");
+const http = require('http');
 
 app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug')
@@ -30,6 +32,13 @@ app.use(flash());
 
 app.locals.moment = moment
 
+// Socket.io
+const server = http.createServer(app);
+const io = new Server(server);
+ 
+global._io = io
+
+// End
 
 
 const route = require("./routes/client/index.route")
@@ -45,6 +54,6 @@ app.get("*", (req, res) => {
   })
 })
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
