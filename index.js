@@ -12,8 +12,6 @@ const moment = require("moment")
 const { Server } = require("socket.io");
 const http = require('http');
 var cors = require('cors')
-const redis = require('redis');
-const RedisStore = require('connect-redis')(session);
 
 app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug')
@@ -30,13 +28,9 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(cookieParser('keyboard cat'));
-const redisClient = redis.createClient({
- // Thay thế bằng địa chỉ Redis của bạn nếu không phải localhost
-  port: 6379         // Cổng Redis, mặc định là 6379
-});
+
 app.use(session({
   cookie: { maxAge: 60000 },
-  store: new RedisStore({ client: redisClient }),   // Sử dụng Redis để lưu trữ session
   secret: 'your-secret-key',
   resave: false,
   saveUninitialized: true
