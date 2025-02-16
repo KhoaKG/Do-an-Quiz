@@ -88,7 +88,9 @@ if(emojiPicker){
 		const icon = event.detail.unicode
 		inputChat.value = inputChat.value + icon
 
-		
+		const end = inputChat.value.length
+		inputChat.setSelectionRange(end, end)
+		inputChat.focus()
 
 		showTyping()
 	})
