@@ -11,6 +11,7 @@ const session = require("express-session")
 const moment = require("moment")
 const { Server } = require("socket.io");
 const http = require('http');
+var cors = require('cors')
 
 app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug')
@@ -32,13 +33,12 @@ app.use(flash());
 
 app.locals.moment = moment
 
+app.use(cors())
 // Socket.io
 const server = http.createServer(app);
 const io = new Server(server,{
   cors: {
-    origin: "*", // Hoặc bạn có thể thêm chính xác URL client vào đây
-    methods: ["GET", "POST"],
-    credentials: true,
+    origin: "https://do-an-quiz-oc11.vercel.app"
   },
 });
 
