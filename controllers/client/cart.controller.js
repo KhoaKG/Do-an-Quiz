@@ -76,7 +76,7 @@ module.exports.delete = async (req, res)=>{
             "$pull": { products: {"product_id": productId}}
         }
     )
-    req.flash("success", "Xoá sản phẩm vào giỏ hàng thành công")
+    req.flash("success", "Xoá sản phẩm thành công")
     res.redirect("back")
 }
 
@@ -92,6 +92,6 @@ module.exports.update = async (req, res)=>{
             'products.$.quantity': quantity
         }
     )
-    req.flash("success", "Cập nhật sản phẩm vào giỏ hàng thành công")
+    req.flash("success", "Cập nhật sản phẩm thành công")
     res.redirect("back")
 }
