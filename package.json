@@ -20,6 +20,7 @@
     "braces": "^3.0.3",
     "chokidar": "^4.0.3",
     "cloudinary": "^2.5.1",
+    "common.js": "^1.1.1",
     "connect-redis": "^5.2.0",
     "cookie-parser": "^1.4.7",
     "cookie-session": "^2.1.0",
