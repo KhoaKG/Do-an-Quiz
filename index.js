@@ -12,6 +12,8 @@ const moment = require("moment")
 const { Server } = require("socket.io");
 const http = require('http');
 var cors = require('cors')
+const redis = require('redis');
+const RedisStore = require('connect-redis')(session);
 
 app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug')
@@ -29,7 +31,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(cookieParser('keyboard cat'));
 
+const redisClient = redis.createClient({
+  url: 'redis://localhost:6379',  // Sử dụng URL Redis từ biến môi trường
+});
+
 app.use(session({
+  store: new RedisStore({ client: redisClient }),
   cookie: { maxAge: 60000 },
   secret: 'your-secret-key',
   resave: false,
