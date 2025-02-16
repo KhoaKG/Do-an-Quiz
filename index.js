@@ -36,7 +36,7 @@ app.locals.moment = moment
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "https://do-an-quiz-oc11-g8hgsufe9-kgs-projects-d7615528.vercel.app/",  // Thay bằng URL của client
+    origin: "https://do-an-quiz-oc11.vercel.app/",  // Thay bằng URL của client
     methods: ["GET", "POST"]
   }
 });
