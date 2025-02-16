@@ -12,7 +12,8 @@ const moment = require("moment")
 const { Server } = require("socket.io");
 const http = require('http');
 var cors = require('cors')
-
+const redis = require('redis');
+const client = redis.createClient();
 app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug')
 
@@ -30,10 +31,11 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser('keyboard cat'));
 app.use(session({ }));
 app.use(session({
+  cookie: { maxAge: 60000 },
+  store: new RedisStore({ client }),   // Sử dụng Redis để lưu trữ session
   secret: 'your-secret-key',
-  resave: false,  // Đảm bảo bạn thiết lập resave
-  saveUninitialized: true,  // Đảm bảo bạn thiết lập saveUninitialized,
-  cookie: { maxAge: 60000 }
+  resave: false,
+  saveUninitialized: true
 }));
 
 app.use(flash());
