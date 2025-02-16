@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@491&display=swap');
+
+* {
+    font-family: "Raleway", serif ;
+    font-optical-sizing: auto;
+    font-weight: 491;
+    font-style: normal;
+  }
+  
 /* Header */
 .header{
     border-bottom: 1px solid #ddd;
@@ -275,3 +284,15 @@
 }
 
 /* End Chat */
+
+
+/* Emoji */
+.tooltip{
+    visibility: hidden;
+}
+
+.tooltip.shown{
+    visibility: visible;
+    opacity: 1;
+}
+/* End Emoji */

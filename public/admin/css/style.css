@@ -1,7 +1,11 @@
-@font-face {
-    font-family: 'Roboto';
-    src: local('Arial');
-}  
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@491&display=swap');
+
+* {
+    font-family: "Raleway", serif ;
+    font-optical-sizing: auto;
+    font-weight: 491;
+    font-style: normal;
+  }
 header {
     background: #202020;
     padding: 10px 0;  
