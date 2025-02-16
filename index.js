@@ -28,7 +28,14 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(cookieParser('keyboard cat'));
-app.use(session({ cookie: { maxAge: 60000 }}));
+app.use(session({ }));
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,  // Đảm bảo bạn thiết lập resave
+  saveUninitialized: true,  // Đảm bảo bạn thiết lập saveUninitialized,
+  cookie: { maxAge: 60000 }
+}));
+
 app.use(flash());
 
 app.locals.moment = moment
