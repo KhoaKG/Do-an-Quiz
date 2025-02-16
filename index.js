@@ -38,7 +38,8 @@ const io = new Server(server, {
   cors: {
     origin: "https://do-an-quiz-oc11.vercel.app/",  // Thay bằng URL của client
     methods: ["GET", "POST"]
-  }
+  },
+  credentials: true // Nếu bạn sử dụng session/cookie
 });
 
  
