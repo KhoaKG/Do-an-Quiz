@@ -13,7 +13,8 @@ const { Server } = require("socket.io");
 const http = require('http');
 var cors = require('cors')
 const redis = require('redis');
-const RedisStore = require('connect-redis')(session);
+const connectRedis = require('connect-redis'); 
+const RedisStore = connectRedis(session)
 
 app.set('views', `${__dirname}/views`)
 app.set('view engine', 'pug')
