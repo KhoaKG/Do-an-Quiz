@@ -1,1 +1,1 @@
-var socket = io("https://do-an-quiz-oc11.vercel.app");
+var socket = io();
