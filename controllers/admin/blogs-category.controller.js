@@ -111,7 +111,7 @@ module.exports.deleteItem = async (req,res) =>{
         }
     })
 
-    req.flash("success", "Cập nhật status thành công")
+    req.flash("success", "Đã xóa thành công")
     res.redirect("back")
 }
 

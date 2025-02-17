@@ -11,6 +11,7 @@ const userMiddleware = require("../../middleware/client/user.middleware")
 const settingMiddleware = require("../../middleware/client/setting.middleware")
 const chatRoute = require("./chat.route")
 const authMiddleware = require("../../middleware/client/auth.middleware")
+
 module.exports = (app)=>{
     app.use(categoryMiddleware.category)
 
@@ -37,6 +38,4 @@ module.exports = (app)=>{
     app.use("/user", userRoute)
 
     app.use("/chat", authMiddleware.requireAuth, chatRoute)
-
-
 }

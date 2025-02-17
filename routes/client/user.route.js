@@ -30,4 +30,6 @@ router.post('/password/reset', validate.resetPasswordPost, controller.resetPassw
 
 router.get('/info', authMiddleware.requireAuth, controller.info)
 
+router.get('/my-course', authMiddleware.requireAuth, controller.myCourse)
+
 module.exports = router

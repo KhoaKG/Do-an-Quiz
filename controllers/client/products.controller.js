@@ -2,7 +2,7 @@ const Product = require("../../model/products.model")
 const productsHelper = require("../../helper/products")
 const ProductsCategory = require("../../model/products-category.model")
 const productsCategoryHelper = require("../../helper/products-category")
-
+const Order = require("../../model/order.model")
 module.exports.index = async (req, res) => {
     try {
         let find = {
@@ -40,9 +40,20 @@ module.exports.detail = async (req, res) => {
             product.category = category
         }
         product.priceNew = productsHelper.priceNewProduct(product)
+        
+        let check = 0
+        const orders = await Order.find({user_id: req.cookies.tokenUser, status: "active"})
+        for(const order of orders){
+            for(const item of order.products){
+                if (item.product_id == product.id){
+                    check = 1
+                }
+            }
+        }
         res.render("client/pages/products/detail",{
             pageTitle: product.title,
-            product: product
+            product: product,
+            check: check
         })
     } catch (error) {
         res.redirect(`/products`)
@@ -67,14 +78,12 @@ module.exports.category = async (req, res) => {
         }).sort({position: "desc"})
 
         const newProducts = productsHelper.priceNewProducts(products)
+        res.render("client/pages/products/index",{
+            pageTitle: category.title,
+            products: newProducts,
+        })
     }   else{
         res.redirect(`/products`)
         return
     }
-    
-
-    res.render("client/pages/products/index",{
-        pageTitle: category.title,
-        products: newProducts
-    })
 }

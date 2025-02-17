@@ -1,0 +1,23 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/product-layout.pug
+block main 
+    .container.my-3
+        .row 
+            .col-12
+                +box-head(pageTitle)
+        .row 
+            a(class="btn btn-primary" href="#" role="button") Đang chờ phê duyệt (#{totalInactive})
+        .row
+            each order in orders
+                if(order.status == "active")
+                    each item in order.products
+                        .col-4.mb-3 
+                            .product-item
+                                .inner-image
+                                    img(src=item.productInfo.thumbnail, alt=item.productInfo.title)
+                                .inner-content
+                                    h3.inner-title 
+                                        a(href=`/products/detail/${item.slug}`) #{item.productInfo.title}
+        
+

@@ -5,6 +5,10 @@ const generateHelper = require("../../helper/generate")
 const ForgotPassword = require("../../model/forgot-password.model")
 const sendMailHelper = require("../../helper/sendMail")
 const Cart = require("../../model/cart.model")
+const Order = require("../../model/order.model")
+const Product = require("../../model/products.model")
+const productsHelper = require("../../helper/products")
+
 module.exports.register = async (req, res) => {
     res.render("client/pages/user/register", {
     	pageTitle: "Đăng ký tài khoản",
@@ -176,4 +180,36 @@ module.exports.info = async (req, res) => {
     res.render("client/pages/user/info", {
     	pageTitle: "Thông tin tài khoản",
 	})
+}
+
+
+module.exports.myCourse = async (req, res)=>{
+	console.log(req.cookies.tokenUser);
+	
+    const orders = await Order.find({
+        user_id: req.cookies.tokenUser
+    })
+	let totalInactive = 0
+	for (const order of orders) {
+		for (const product of order.products) {
+			const productInfo = await Product.findOne({
+				_id: product.product_id
+			}).select("thumbnail title")
+	
+			product.productInfo = productInfo
+		}
+		if(order.status == "inactive"){
+			for (const product of order.products) {
+				totalInactive += product.quantity
+			}
+			
+		}
+    }
+    
+    
+    res.render("client/pages/user/my-course",{
+        pageTitle: "Quiz của tôi",
+		orders: orders,
+		totalInactive: totalInactive
+    })
 }

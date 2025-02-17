@@ -2,17 +2,25 @@ extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 include ../../mixins/alert.pug
 block main
+    a(
+        type="button"
+	    onClick = "history.back()"
+    )   <i class="fa-solid fa-arrow-left"></i>
     +alert-success(5000)
     +alert-error(5000)
     .container.my-3
         .row
             .col-12
-                +box-head("Thanh toán thành công ")
+                +box-head(order.order_code)
         .row
             .col-12
-                div(class = "alert alert-success")
-                    | Chúc mừng bạn đã đặt hàng thành công! Chúng tôi sẽ xử lý đơn hàng trong thời gian sớm nhất.
-    	
+                if(order.status == "active")
+                    div(class = "alert alert-success")
+                        | Đơn hàng đã được phê duyệt
+                else 
+                    div(class = "alert alert-warning")
+                        | Đơn hàng chưa phê duyệt
+
         if(order)
             .row
                 .col-12
@@ -55,8 +63,9 @@ block main
                                                 width = "80px"
                                             )
                                         td #{item.productInfo.title}
-                                        td #{item.price}
+                                        td #{item.price}$
                                         td #{item.quantity}	
                                         td #{item.totalPrice}$	
                     if(order.products.length > 0)
                         h3(class = "text-right") Tổng đơn hàng: #{order.totalPrice}$
+    
