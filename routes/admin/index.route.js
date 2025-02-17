@@ -11,6 +11,7 @@ const blogsRoute = require("./blogs.route")
 const myAccountRoute = require("./my-account.route")
 const settingRoute = require("./setting.route")
 const orderManagementRoute = require("./order-management.route")
+const manageQuestionsRoute = require("./manage-questions.route")
 module.exports = (app)=>{
     const DATA_PATH = systemConfig.prefixAdmin
     app.use(DATA_PATH + "/dashboard", authMiddleware.requireAuth,dashboardRoute)
@@ -32,6 +33,8 @@ module.exports = (app)=>{
     app.use(DATA_PATH+ "/settings", authMiddleware.requireAuth, settingRoute)
 
     app.use(DATA_PATH+ "/order-management", authMiddleware.requireAuth, orderManagementRoute)
+
+    app.use(DATA_PATH+ "/manage-questions", authMiddleware.requireAuth, manageQuestionsRoute)
 
     app.use(DATA_PATH+ "/auth", authRoute)
 }

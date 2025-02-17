@@ -42,7 +42,7 @@ mixin table-tree-order(items, level=1)
                 else
                     span 
 
-            td
+            td(style="display: flex; gap: 5px")
                 a(
                     href=`${prefixAdmin}/order-management/detail/${item.id}`
                     class="btn btn-secondary btn-sm"

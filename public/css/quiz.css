@@ -1,0 +1,146 @@
+.inner-quiz{
+    width: 100%;
+    height: 100%;
+
+}
+
+.inner-quiz .inner-title{
+    font-size: 50px;
+    color: #436D72;
+    margin-top: 70px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.inner-quiz .form-quiz{
+    background-color: #ffff;
+    padding: 30px;
+    border-radius: 40px;
+}
+
+.inner-quiz .form-quiz_title{
+    display: flex;
+    background-color: #CCDFE1;
+    width: 70%;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.inner-quiz .form-quiz_title .form-quiz_sentence{
+    height: 40px;
+    width: 50px;
+    border-radius: 18px;
+    background-color: #A0C7CB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inner-quiz .form-quiz_title .form-quiz_sentence span{
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.inner-quiz .form-quiz_title .form-quiz_question{
+    text-align: center;
+}
+
+.inner-quiz .form-quiz_title .form-quiz_question span{
+    line-height: 40px;
+    margin-left: 20px;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0,1;
+    color: black;
+}
+
+/* Code theo */
+.form-quiz__answer{
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    margin-left: 50px
+}
+
+.form-quiz__answer span{
+    margin-left: 1rem ;
+}
+
+.check-input{
+    display: none;
+}
+
+.checkbox{
+    width: 25px;
+    height: 25px;
+    border: 2px solid black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 3px;
+    transition: 0.3s all;
+}
+
+.checkbox svg{
+    width: 20px;
+    height: 20px;
+}
+
+.check-input:checked + .checkbox {
+    background: #26bfbf;
+    border: 2px solid #26bfbf;
+}
+
+.check-input:checked + .checkbox svg path{
+    stroke-dashoffset: 500;
+    stroke-dasharray: 500;
+    stroke: #fff;
+    stroke-width: 3;
+    animation: check 4s forwards;
+}
+
+.checkbox::before{
+    content: "";
+    background: #26bfbf66;
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    display: block;
+    width: 60px;
+    height: 60px;
+    z-index: -1;
+}
+
+.check-input:checked + .checkbox::before{
+    animation: ripple 0.3s;
+}
+
+@keyframes check{
+    to{
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes ripple{
+    to{
+        transform: scale(1);
+    }
+}
+
+.button-quiz{
+    background-color: #CCDFE1;
+    width: 100px;
+    margin-top: 40px;
+    padding: 15px;
+    border: none;
+    border-radius: 45px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.button-quiz:hover{
+    background-image: linear-gradient(to right, #abbdbd78 , white);
+    transition: all 0.3s ease 0s;
+}

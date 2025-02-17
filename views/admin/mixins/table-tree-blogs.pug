@@ -62,7 +62,7 @@ mixin table-tree-blogs(items, level=1)
                                             p 
                                                 +formatDateTime(updatedBy.updateAt)
 
-            td
+            td(style="display: flex; gap: 5px")
                 a(
                     href=`${prefixAdmin}/blogs-category/detail/${item.id}`
                     class="btn btn-secondary btn-sm"

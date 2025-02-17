@@ -98,3 +98,169 @@ header .inner-logo a {
 }
 /* End Image Preview */
 
+/* Question-manage */
+
+.questions-container{
+    padding: 15px;
+}
+
+.questions-container .title{
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.custom-dropdown {
+    position: relative;
+    width: 80%;
+}
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+.dropdown-menu.show {
+    display: block; /* Chỉ hiển thị khi có class 'show' */
+}
+.dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+}
+.dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+.selected-value {
+    padding: 8px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #fff;
+}
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding: 0;
+}
+
+.form-control {
+    padding-top: 1.25rem;
+    height: calc(3rem + 2px);
+}
+
+.form-group label {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    transition: all 0.2s ease-in-out;
+    background: white;  
+    padding: 0 5px;
+    color: #aaa;
+}
+
+.form-control:focus + label,
+.form-control:not(:placeholder-shown) + label {
+    top: -0.5rem;
+    font-size: 0.875rem;
+    color: #007bff;
+}
+
+.form-group.description{
+    width: 50%;
+}
+
+.form-question-answer{
+    background-color: #ddd;
+    margin-top: 20px;
+    padding: 40px;
+}
+.questions-content{
+    display: flex;
+    gap: 25px;
+    padding-top: 0;
+}
+
+.questions-content .group-upload{
+    padding-top: 10px;
+}
+
+.questions-content .group-upload .label-up{
+    margin-right: 3px;
+    cursor: pointer;
+    color: #9068ff;
+    font-size: 25px;
+    
+}
+
+.questions-content .group-upload .label-up:hover{
+    color: #4400ff;
+}
+
+.questions-content .btn-add{
+    padding-top: 7px;
+}
+
+.questions-content .btn-add .icon-add{
+    font-size: 25px;
+    color: #2596ff;
+    cursor: pointer;
+}
+
+.questions-content .btn-add .icon-add:hover{
+    color: #0989ff;
+}
+
+.questions-content .btn-add .icon-remove{
+    margin-left: 10px;
+    font-size: 25px;
+    color: #e8771c;
+    cursor: pointer;
+}
+
+.questions-content .btn-add .icon-remove:hover{
+    color: #ff7608;
+}
+
+.answer-content{
+    display: flex;
+    gap: 10px;
+    padding-left: 20px;
+    padding-top: 30px;
+    align-items: center;
+}
+
+.answer-content .iscorrect{
+    font-size: 20px;
+}
+
+.answer-content .answer-name{
+    width: 60%;
+    margin: 0;
+}
+
+.answer-content .btn-group .icon-add{
+    font-size: 25px;
+    color: #2596ff;
+    cursor: pointer;
+}
+.answer-content .btn-group .icon-add:hover{
+    color: #0989ff;
+}
+
+.answer-content .btn-group .icon-remove{
+    margin-left: 10px;
+    font-size: 25px;
+    color: #e8771c;
+    cursor: pointer;
+}
+
+.answer-content .btn-group .icon-remove:hover{
+    color: #ff7608;
+}
+
+
+
+/* End Question-manage */

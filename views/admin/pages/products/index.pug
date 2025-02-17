@@ -131,7 +131,7 @@ block main
                                             p #{updatedBy.accountFullname}
                                             p 
                                                 +formatDateTime(updatedBy.updateAt)
-                                    td
+                                    td(style="display: flex; gap: 5px")
                                         if(role.permissions.includes("products_edit"))
                                             a(
                                                 href=`${prefixAdmin}/products/edit/${item.id}`

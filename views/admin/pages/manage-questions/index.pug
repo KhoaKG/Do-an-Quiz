@@ -1,0 +1,106 @@
+extends ../../layouts/default.pug
+block main
+    div(class="questions-container")  
+        div( class = "title") Quản lý câu hỏi
+            div( class = "col-6 form-group")
+                if(record)
+                    select(name="type" class="form-control dropdown")
+                        each item in products
+                            option(value=item.slug selected=(record.quiz_title === item.slug ? true : false)) #{item.title}
+                else 
+                    select(name="type" class="form-control dropdown")
+                        each item in products
+                            option(value=item.slug) #{item.title}
+            if(record)
+                h5 Add Question:
+                    form(action=`${prefixAdmin}/manage-questions/edit/${record.quiz_title}?_method=PATCH`
+                        id="form-edit-product" 
+                        method="POST"
+                        enctype="multipart/form-data"
+                    )
+                        if(record.questions)
+                            each item, indexQuestion in record.questions
+                                div( class = "form-question-answer")
+                                    div(class="questions-content" data-index=indexQuestion) 
+                                        div(class="form-group description ")
+                                            input(
+                                                type="text" 
+                                                class="form-control" 
+                                                placeholder="" 
+                                                required 
+                                                name=`inputQuestion[${indexQuestion}]`
+                                                value=item.inputQuestion
+                                                )
+                                            label Question #{indexQuestion+1}
+                                        div(
+                                            class="form-group group-upload"
+                                            upload-image
+                                        )
+                                            label(for="thumbnail" class="label-up") 
+                                            input(
+                                                type="file"
+                                                class="form-control-file"   
+                                                id="thumbnail" 
+                                                name="thumbnail"
+                                                accept = "image/*"
+                                                upload-image-input
+                                            )
+                                        div(class="btn-add")           
+                                            span 
+                                                i(class="fa-solid fa-circle-plus icon-add")          
+                                            span 
+                                                i(class="fa-solid fa-circle-minus icon-remove")
+                                    each it, indexAnswer in item.answer_content
+                                        div(class="answer-content" data-index=indexAnswer)
+                                            input(
+                                                class="form-check-input iscorrect" 
+                                                type="checkbox" 
+                                                value=it.input_answer
+                                                name=`iscorrect[${indexQuestion}][${indexAnswer}]`
+                                                checked=(it.is_correct == "true" ? true : false )
+                                            )
+                                            div(class="form-group answer-name")
+                                                input(
+                                                    type="text" 
+                                                    class="form-control" 
+                                                    placeholder=" " 
+                                                    required
+                                                    name=`answerContent[${indexQuestion}][${indexAnswer}]`
+                                                    value=it.input_answer
+                                                    )
+                                                label Answer #{indexAnswer+1}
+                                            div(class="btn-group")           
+                                                span 
+                                                    i(class="fa-solid fa-circle-plus icon-add")          
+                                                span 
+                                                    i(class="fa-solid fa-circle-minus icon-remove")
+                            div(class="form-group mt-5")
+                                button(
+                                type='submit'
+                                class="btn btn-warning"
+                            ) Cập nhật
+
+    form(action=""
+        method="POST"
+        id="form-add-answer"
+        data-path=`${prefixAdmin}/manage-questions/addAnswer`
+    ) 
+
+    form(action=""
+        method="GET"
+        id="form-load-quiz"
+        data-path=`${prefixAdmin}/manage-questions/loadQuiz`
+    ) 
+
+    form(action=""
+        method="POST"
+        id="form-add-question"
+        data-path=`${prefixAdmin}/manage-questions/addQuestion`
+    ) 
+
+
+    script(src="/admin/js/manage-questions.js") 
+
+
+
+    

@@ -194,7 +194,7 @@ module.exports.myCourse = async (req, res)=>{
 		for (const product of order.products) {
 			const productInfo = await Product.findOne({
 				_id: product.product_id
-			}).select("thumbnail title")
+			})
 	
 			product.productInfo = productInfo
 		}

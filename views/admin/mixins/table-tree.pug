@@ -62,7 +62,7 @@ mixin table-tree(items, level=1)
                                             p 
                                                 +formatDateTime(updatedBy.updateAt)
 
-            td
+            td(style="display: flex; gap: 5px")
                 a(
                     href=`${prefixAdmin}/products-category/detail/${item.id}`
                     class="btn btn-secondary btn-sm"
