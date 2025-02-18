@@ -1,135 +1,100 @@
-const ManageQuestion = require("../../model/manage-questions.model")
-const Product = require("../../model/products.model")
+const ManageQuestion = require("../../model/manage-questions.model");
+const Product = require("../../model/products.model");
+
 module.exports.index = async (req, res) => {
     const products = await Product.find({
         deleted: false,
         status: "active"
-    })
-    res.render("admin/pages/manage-questions/index",{
+    });
+    res.render("admin/pages/manage-questions/index", {
         pageTitle: "Trang quản lý câu hỏi",
         products: products
-    })
-}
+    });
+};
 
-module.exports.loadQuiz = async (req, res) => {
-    const quizTitle = req.params.quizTitle
+// Xử lý thêm câu hỏi mới
+exports.addQuestion = async (req, res) => {
+    try {
+        let { type, questions, answers, correctAnswer } = req.body;
+        if (!Array.isArray(questions)) {
+            questions = [questions];  // Chuyển 'questions' thành một mảng
+            console.log('Questions đã được chuyển thành mảng:', questions);
+        }
+        // Kiểm tra nếu dữ liệu không đầy đủ
+        if (!questions || !answers || !correctAnswer) {
+            return res.status(400).json({ success: false, message: 'Dữ liệu không đầy đủ' });
+        }
+
+
+        // Xử lý dữ liệu và chuyển thành định dạng mong muốn
+        const questionsData = [];
+        for (let i = 0; i < questions.length; i++) {
+            // Xử lý câu hỏi
+            const question = questions[i];
+            const answerSet = answers.slice(i * 4, (i + 1) * 4);  // Mỗi câu hỏi có 4 câu trả lời
+            console.log(answerSet.length);
+            
+            // Nếu thiếu câu trả lời, có thể xử lý thêm hoặc trả về lỗi
+            if (answerSet.length < 1) {
+                return res.status(400).json({ success: false, message: 'Thiếu câu trả lời' });
+            }
+
+            let correctAnswerIndex = parseInt(correctAnswer[i]);  // Chuyển correctAnswer thành số nguyên
+            console.log(correctAnswerIndex);
+            if (isNaN(correctAnswerIndex) || correctAnswerIndex < 0 || correctAnswerIndex > 3) {
+                return res.status(400).json({ success: false, message: 'Chỉ số câu trả lời đúng không hợp lệ' });
+            }
+
+            // Tạo đối tượng câu hỏi theo định dạng mong muốn
+            const newQuestion = {
+                quiz_title: type,   // Thêm quiz title (trang quiz)
+                question: question, // Câu hỏi
+                answers: answerSet, // Câu trả lời
+                correctAnswer: correctAnswerIndex,   // Bạn có thể thay đổi logic này sau để chỉ định câu trả lời đúng
+                id: i + 1           // ID của câu hỏi (tăng dần từ 1)
+            };
+
+            questionsData.push(newQuestion);
+        }
+
+        // Lưu tất cả câu hỏi vào cơ sở dữ liệu
+        await ManageQuestion.insertMany(questionsData);
+        res.redirect(`/admin/manage-questions/exams/${type}`)
+    } catch (error) {
+        res.send("Lôix")
+    }
+};
+
+
+module.exports.exams = async (req, res) => {
     const products = await Product.find({
         deleted: false,
         status: "active"
-    })
-
-    // Tìm record trong ManageQuestion với quiz_title tương ứng
-    let record = await ManageQuestion.findOne({ quiz_title: quizTitle });
-    // Nếu không có record nào, tạo một record mới
-    if (!record) {
-        record = new ManageQuestion({ quiz_title: quizTitle });
-        await record.save();
-        // Cập nhật lại record sau khi đã tạo
-        record = await ManageQuestion.find({ quiz_title: quizTitle });
-    }
-    // console.log(record);
-    
-    res.render("admin/pages/manage-questions/index",{
-        pageTitle: "Trang quản lý câu hỏi",
-        products: products,
-        record: record
-    })
-}
-
-module.exports.addAnswer = async (req, res) => {
-    const quizTitle = req.params.quizTitle
-    const indexQuestion = parseInt(req.params.indexQuestion)
-    const indexAnswer = parseInt(req.params.indexAnswer)
-    const answer_content= 
-        {
-            answerNumber: indexAnswer + 2,
-            input_answer: `Answer ${indexAnswer + 2}`
-        }
-;
-    await ManageQuestion.updateOne(
-        { 
-            quiz_title: quizTitle
-        },
-        {
-            $push: { 
-                [`questions.${indexQuestion}.answer_content`]: answer_content // Dùng chỉ số indexQuestion để chỉ định câu hỏi
-            }
-        }
-    );
-    
-    res.redirect("back")
-
-}
-
-module.exports.addQuestion = async (req, res) => {
-    const quizTitle = req.params.quizTitle
-    const indexQuestion = parseInt(req.params.indexQuestion)
-
-    const questions = {
-        input_description: `Question ${indexQuestion+2}`,
-        thumbnail: ' ',
-        inputQuestion: `Question ${indexQuestion+2}`,
-        answer_content: [
-            {
-                answerNumber:"1",
-                input_answer: "Answer 1"
-            }
-        ]
-    }
-    await ManageQuestion.updateOne({quiz_title: quizTitle}, {
-        $push: {questions: questions}
-    })
-    res.redirect("back")
-
-}
-module.exports.editPatch = async (req, res) => {
-    const inputQuestions = req.body.inputQuestion;  // Mảng các câu hỏi
-    const answerContents = req.body.answerContent;  // Mảng các câu trả lời
-    const iscorrect = req.body.iscorrect;  // Các câu trả lời đúng
-    const quizTitle = req.params.quizTitle
-    
-
-    // Nhóm dữ liệu thành câu hỏi và câu trả lời
-    const questions = inputQuestions.map((inputQuestion, indexQuestion) => {
-        const answers = answerContents[indexQuestion] || [];  // Lấy các câu trả lời
-        const correctAnswers = Array.isArray(iscorrect) && iscorrect[indexQuestion] ? iscorrect[indexQuestion] : [];  // Lấy câu trả lời đúng
-        
-        return {
-            inputQuestion,  // Câu hỏi
-            answer_content: answers.map((answer, indexAnswer) => ({
-                input_answer: answer,  // Câu trả lời
-                is_correct: correctAnswers.includes(answer)  // Kiểm tra câu trả lời đúng
-            }))
-        };
     });
-    console.log(questions);
+    console.log(products);
     
-    try {
-        // Cập nhật từng câu hỏi trong mảng questions
-        await ManageQuestion.updateOne(
-            { quiz_title: quizTitle },  // Tìm kiếm tài liệu dựa trên quiz_title
-            { $set: { questions: questions } },  // Cập nhật mảng questions
-        );
-        for (const question of questions) {
-            await ManageQuestion.updateOne(
-                { quiz_title: quizTitle, 'questions.inputQuestion': question.inputQuestion },  // Tìm câu hỏi theo quiz_title và inputQuestion
-                { 
-                    $set: { 
-                        'questions.$.inputQuestion': question.inputQuestion,  // Cập nhật inputQuestion
-                        'questions.$.answer_content': question.answer_content  // Cập nhật answer_content
-                    } 
-                }
-            );
-        }
-
-        // Gửi phản hồi sau khi hoàn thành tất cả các cập nhật
-        res.redirect("back")
-
-    } catch (err) {
-        // Nếu có lỗi, gửi phản hồi và tránh gọi res.send nhiều lần
-        console.error("Error updating quiz:", err);
-        if (!res.headersSent) {
-            res.status(500).send("Internal Server Error");
-        }
-    }
+    res.render("admin/pages/manage-questions/exams", {
+        pageTitle: "Trang quản lý đề thi",
+        products: products
+    });
 };
+
+module.exports.examsSlug = async (req, res) => {
+    const quizTitle = req.params.slug
+    const dataQuestion = await ManageQuestion.find({
+        quiz_title: quizTitle
+    })
+    let title = ""
+    for(const item of dataQuestion){
+        const products = await Product.findOne({
+            slug: item.quiz_title,
+        });
+        title = products.title     
+    }
+    res.render("admin/pages/manage-questions/examsSlug",{
+        pageTitle: "Trang",
+        dataQuestion: dataQuestion,
+        quizTitle: quizTitle,
+        title: title
+    })
+}

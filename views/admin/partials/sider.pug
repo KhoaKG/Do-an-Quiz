@@ -24,9 +24,14 @@
             if(role.permissions.includes("blogs_view"))
                 li 
                     a(href=`${prefixAdmin}/blogs`) Danh sách bài viết
-            li 
-                a(href=`${prefixAdmin}/order-management`) Quản lý đơn hàng
-            li
-                a(href=`${prefixAdmin}/manage-questions`) Quản lý câu hỏi
+            if(role.permissions.includes("order-management_view"))
+                li 
+                    a(href=`${prefixAdmin}/order-management`) Quản lý đơn hàng
+            if(role.permissions.includes("manage-questions_view"))
+                li
+                    a(href=`${prefixAdmin}/manage-questions`) Quản lý câu hỏi
+            if(role.permissions.includes("manage-exams_view"))
+                li
+                    a(href=`${prefixAdmin}/manage-questions/exams`) Quản lý đề thi
             li
                 a(href=`${prefixAdmin}/settings/general`) Cài đặt chung

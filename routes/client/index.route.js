@@ -12,6 +12,8 @@ const settingMiddleware = require("../../middleware/client/setting.middleware")
 const chatRoute = require("./chat.route")
 const authMiddleware = require("../../middleware/client/auth.middleware")
 const quizRoute = require("./quiz.route")
+const resultRoute = require("./result.route")
+const answerRoute = require("./answer.route")
 module.exports = (app)=>{
     app.use(categoryMiddleware.category)
 
@@ -40,4 +42,8 @@ module.exports = (app)=>{
     app.use("/chat", authMiddleware.requireAuth, chatRoute)
 
     app.use("/quiz", authMiddleware.requireAuth, quizRoute)
+
+    app.use("/result", authMiddleware.requireAuth, resultRoute)
+
+    app.use("/answers", authMiddleware.requireAuth, answerRoute)
 }

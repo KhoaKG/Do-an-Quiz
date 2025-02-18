@@ -9,12 +9,10 @@ const uploadClound = require("../../middleware/admin/uploadCloud.middleware")
 
 route.get('/', controller.index)
 
-route.get('/loadQuiz/:quizTitle', controller.loadQuiz)
+route.post('/addQuestion', controller.addQuestion);
 
-route.post('/addAnswer/:quizTitle/:indexQuestion/:indexAnswer', controller.addAnswer)
+route.get('/exams', controller.exams)
 
-route.post('/addQuestion/:quizTitle/:indexQuestion', controller.addQuestion)
-
-route.patch('/edit/:quizTitle',upload.single("thumbnail"),uploadClound.upload, controller.editPatch)
+route.get('/exams/:slug', controller.examsSlug)
 
 module.exports = route

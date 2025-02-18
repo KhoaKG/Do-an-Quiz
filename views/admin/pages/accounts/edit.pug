@@ -2,6 +2,10 @@ extends ../../layouts/default.pug
 include ../../mixins/alert.pug
 block main
     if(role.permissions.includes("accounts_edit"))
+        a(
+            type="button"
+            onClick = "history.back()"
+        )   <i class="fa-solid fa-arrow-left"></i>
         h1(class="mb-4") Sửa tài khoản
         +alert-error(5000)
         if(roles)
@@ -37,6 +41,7 @@ block main
                         class="form-control"
                         id="password" 
                         name="password"
+                        autocomplete="off"
                     )
                 div(class="form-group")
                     label(for="phone") Số điện thoại

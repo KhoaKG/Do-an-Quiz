@@ -1,5 +1,9 @@
 extends ../../layouts/default.pug
 block main
+    a(
+            type="button"
+            onClick = "history.back()"
+        )   <i class="fa-solid fa-arrow-left"></i>
     if(product.title)
         h1(class="mb-4") #{product.title}
     if(product.price)

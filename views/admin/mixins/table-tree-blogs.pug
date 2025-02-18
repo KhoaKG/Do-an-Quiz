@@ -63,10 +63,6 @@ mixin table-tree-blogs(items, level=1)
                                                 +formatDateTime(updatedBy.updateAt)
 
             td(style="display: flex; gap: 5px")
-                a(
-                    href=`${prefixAdmin}/blogs-category/detail/${item.id}`
-                    class="btn btn-secondary btn-sm"
-                    ) Chỉnh sửa
                 if(role.permissions.includes("blogs-category_edit"))
                     a(
                         href=`${prefixAdmin}/blogs-category/edit/${item.id}`

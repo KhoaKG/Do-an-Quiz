@@ -8,15 +8,17 @@
   }
   
 /* Header */
-.header{
+.header {
     border-bottom: 1px solid #ddd;
-    padding: 10px 0
+    padding: 10px 0;
 }
-.header .inner-logo img{
+
+.header .inner-logo img {
     max-height: 50px;
     max-width: 100%;
 }
-.header .inner-menu > ul{
+
+.header .inner-menu > ul {
     list-style: none;
     padding: 0;
     margin: 0;
@@ -24,31 +26,95 @@
     justify-content: flex-end;
     flex-wrap: wrap;
 }
-.header .inner-menu > ul > li{
+
+.header .inner-menu > ul > li {
     margin-left: 20px;
 }
+
+/* Cải thiện giao diện input tìm kiếm */
+.form-group .form-control {
+    padding: 10px 15px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: calc(100% - 80px); /* Đảm bảo input chiếm hết không gian còn lại, tính cả khoảng cách với button */
+    margin-right: 10px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Khi hover hoặc focus vào input */
+.form-group .form-control:hover,
+.form-group .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Cải thiện kiểu dáng của button tìm kiếm */
+.form-group .btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    border: 1px solid #007bff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-group .btn:hover {
+    background-color: #0056b3;
+    color: white;
+}
+
+
+/* Cải thiện thêm phần hover cho các menu items */
+.header .inner-menu > ul > li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.header .inner-menu > ul > li a:hover {
+    color: #007bff;
+    background-color: #e2e6ea; /* Màu nền khi hover */
+}
+
 /* End Header */
+
+
+
 /* Footer */
-.footer{
+.footer {
     background: #333;
     color: #fff;
     text-align: center;
     padding: 10px;
 }
+
 /* End Footer */
 
 /* Box-head */
 .box-head {
-    margin-bottom:
-    30px;
-    }
+    margin-bottom: 30px;
+}
+
 .box-head .inner-title {
     margin-bottom: 0;
     font-size: 28px;
     font-weight: 600;
     color: green;
 }
+
+/* Cải thiện Box-head thêm khoảng cách */
+.box-head .inner-title {
+    margin-bottom: 15px;
+}
+
 /* End Box-head */
+
 .product-item { 
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -345,3 +411,309 @@
 }
 
 /* End Typing */
+
+.inner-quiz{
+    width: 100%;
+    height: 100%;
+
+}
+
+.inner-quiz .inner-title{
+    font-size: 50px;
+    color: #436D72;
+    margin-top: 70px;
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.inner-quiz .form-quiz{
+    background-color: #ffff;
+    padding: 30px;
+    border-radius: 40px;
+}
+
+.inner-quiz .form-quiz_title{
+    display: flex;
+    background-color: #CCDFE1;
+    width: 70%;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.inner-quiz .form-quiz_title .form-quiz_sentence{
+    height: 40px;
+    width: 50px;
+    border-radius: 18px;
+    background-color: #A0C7CB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.inner-quiz .form-quiz_title .form-quiz_sentence span{
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.inner-quiz .form-quiz_title .form-quiz_question{
+    text-align: center;
+}
+
+.inner-quiz .form-quiz_title .form-quiz_question span{
+    line-height: 40px;
+    margin-left: 20px;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 0,1;
+    color: black;
+}
+
+/* Code theo */
+.form-quiz__answer{
+    margin: 1rem 0;
+    display: flex;
+    align-items: center;
+    margin-left: 50px
+}
+
+.form-quiz__answer span{
+    margin-left: 1rem ;
+}
+
+.check-input {
+    position: absolute; /* Đưa radio vào vị trí tuyệt đối */
+    opacity: 0; /* Ẩn radio nhưng vẫn có thể nhấn được */
+    z-index: 1; /* Đảm bảo radio không che mất các phần tử khác */
+    width: 30px; /* Tăng kích thước radio */
+    height: 30px; /* Tăng kích thước radio */
+    left: 86px; /* Căn giữa theo chiều ngang */
+    cursor: pointer;
+    transform: translate(-32%, -19%); /* Đảm bảo radio hoàn toàn căn giữa */
+}
+
+
+
+.checkbox{
+    width: 25px;
+    height: 25px;
+    border: 2px solid black;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 3px;
+    transition: 0.3s all;
+}
+
+.checkbox svg {
+    width: 20px;
+    height: 20px;
+}
+
+.check-input:checked + .checkbox {
+    background: #26bfbf;
+    border: 2px solid #26bfbf;
+}
+
+.check-input:checked + .checkbox-true  {
+    background: #07b352 !important;
+    border: 2px solid #07b352 !important;
+}
+
+.form-quiz__answer .checkbox-true {
+    background-color: #07b352 !important; /* Màu nền xanh */
+    border: 2px solid #07b352 !important; /* Viền màu xanh */
+}
+
+.form-quiz__answer .checkbox-true svg path{
+    stroke-dashoffset: 500;
+    stroke-dasharray: 500;
+    stroke: #fff;
+    stroke-width: 3;
+    animation: check 4s forwards;
+}
+
+.check-input:checked + .checkbox-false {
+    background: red !important;
+    border: 2px solid red !important;
+}
+
+
+.check-input:checked + .checkbox svg path{
+    stroke-dashoffset: 500;
+    stroke-dasharray: 500;
+    stroke: #fff;
+    stroke-width: 3;
+    animation: check 4s forwards;
+}
+
+.checkbox::before{
+    content: "";
+    background: #26bfbf66;
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    display: block;
+    width: 60px;
+    height: 60px;
+    z-index: -1;
+}
+
+.check-input:checked + .checkbox::before{
+    animation: ripple 0.3s;
+}
+
+@keyframes check{
+    to{
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes ripple{
+    to{
+        transform: scale(1);
+    }
+}
+
+.button-quiz{
+    background-color: #CCDFE1;
+    width: 100px;
+    margin-top: 40px;
+    padding: 15px;
+    border: none;
+    border-radius: 45px;
+    cursor: pointer;
+    transition: all 0.3s ease 0s;
+}
+
+.button-quiz:hover{
+    background-image: linear-gradient(to right, #abbdbd78 , white);
+    transition: all 0.3s ease 0s;
+}
+
+.quiz-result {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+}
+
+.quiz-result p {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #333;
+}
+
+.quiz-result p strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.quiz-result .result-header {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    font-weight: 700;
+    color: #07b352;
+}
+
+.quiz-result .result-details {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.quiz-result .result-details p {
+    background-color: #07b352;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.quiz-result .result-details p.sai {
+    background-color: red;
+}
+
+.quiz-result .result-footer {
+    margin-top: 20px;
+}
+
+.quiz-result .result-footer a {
+    text-decoration: none;
+    color: #fff;
+    background-color: #26bfbf;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    display: inline-block;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.quiz-result .result-footer a:hover {
+    background-color: #1a9999;
+}
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.table th, .table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #26bfbf;
+    color: white;
+    font-size: 1.1em;
+}
+
+.table td {
+    font-size: 1em;
+    color: #333;
+}
+
+.table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table a {
+    color: #07b352;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.table a:hover {
+    color: #1a9999;
+}
+.btn {
+    font-size: 1.1rem; /* Cải thiện kích thước chữ */
+    padding: 15px 30px; /* Tăng padding để button rộng và đẹp hơn */
+    border-radius: 50px; /* Bo góc button */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Thêm bóng mờ cho button */
+    transition: all 0.3s ease-in-out; /* Thêm hiệu ứng chuyển động */
+}
+
+.btn:hover {
+    transform: translateY(-5px); /* Khi hover, button di chuyển lên */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Thêm bóng mờ mạnh hơn khi hover */
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+}

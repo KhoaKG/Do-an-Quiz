@@ -97,170 +97,234 @@ header .inner-logo a {
     display: none;
 }
 /* End Image Preview */
-
-/* Question-manage */
-
-.questions-container{
-    padding: 15px;
-}
-
-.questions-container .title{
-    margin-bottom: 15px;
-    font-size: 20px;
+/* Cải thiện kiểu dáng nút sản phẩm */
+/* Cải thiện kiểu dáng nút sản phẩm */
+.btn-product {
+    padding: 12px 25px;
+    font-size: 16px;
     font-weight: 600;
+    margin: 10px;
+    background-color: #28a745; /* Màu xanh lá cây */
+    color: white;
+    border-radius: 30px;
+    border: 1px solid #28a745;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s, transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tạo bóng cho nút */
 }
 
-.custom-dropdown {
-    position: relative;
-    width: 80%;
+/* Khi hover (di chuột vào nút) */
+.btn-product:hover {
+    background-color: #218838; /* Màu xanh lá đậm */
+    color: white;
+    transform: translateY(-3px); /* Nâng nút lên khi hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Tăng độ bóng khi hover */
 }
-.dropdown-menu {
-    display: none;
+
+/* Khi nút được nhấn (active) */
+.btn-product:active {
+    transform: translateY(1px); /* Hạ nút xuống khi nhấn */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Giảm độ bóng khi nhấn */
+}
+/* Tiêu đề đẹp */
+/* Tiêu đề đẹp */
+.title {
+    font-size: 32px; /* Kích thước chữ lớn */
+    font-weight: 700; /* Làm cho chữ đậm */
+    color: #333; /* Màu chữ xám đậm để dễ đọc */
+    text-align: center; /* Căn giữa tiêu đề */
+    margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+    text-transform: uppercase; /* Chữ in hoa */
+    letter-spacing: 1px; /* Khoảng cách giữa các chữ cái */
+    position: relative; /* Để tạo hiệu ứng đằng sau tiêu đề */
+    font-family: 'Arial', sans-serif; /* Chọn font chữ đẹp, dễ đọc */
+}
+
+/* Thêm hiệu ứng gạch chân cho tiêu đề */
+.title::after {
+    content: '';
     position: absolute;
-    width: 100%;
-    background-color: white;
-    border: 1px solid #ccc;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    bottom: -5px; /* Vị trí cách dưới tiêu đề */
+    left: 0;
+    width: 100%; /* Đặt chiều dài gạch chân là 100% */
+    height: 3px; /* Độ dày của đường gạch chân */
+    background-color: #28a745; /* Màu gạch chân (xanh lá cây) */
 }
-.dropdown-menu.show {
-    display: block; /* Chỉ hiển thị khi có class 'show' */
+
+/* Thêm hiệu ứng hover cho tiêu đề */
+.title:hover {
+    color: #28a745; /* Đổi màu chữ khi hover */
+    cursor: pointer; /* Hiển thị con trỏ pointer khi hover */
 }
-.dropdown-item {
-    padding: 10px;
-    cursor: pointer;
-}
-.dropdown-item:hover {
-    background-color: #f8f9fa;
-}
-.selected-value {
-    padding: 8px;
-    border: 1px solid #ced4da;
-    border-radius: 4px;
-    cursor: pointer;
+/* Nội dung quiz */
+.inner-quiz {
+    margin: 20px auto;
+    max-width: 900px;
+    padding: 20px;
     background-color: #fff;
-}
-.form-group {
-    position: relative;
-    margin-bottom: 1.5rem;
-    padding: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
-.form-control {
-    padding-top: 1.25rem;
-    height: calc(3rem + 2px);
+/* Tiêu đề quiz */
+.inner-title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
 }
 
-.form-group label {
-    position: absolute;
-    top: 0.75rem;
-    left: 0.75rem;
-    transition: all 0.2s ease-in-out;
-    background: white;  
-    padding: 0 5px;
-    color: #aaa;
-}
-
-.form-control:focus + label,
-.form-control:not(:placeholder-shown) + label {
-    top: -0.5rem;
-    font-size: 0.875rem;
-    color: #007bff;
-}
-
-.form-group.description{
-    width: 50%;
-}
-
-.form-question-answer{
-    background-color: #ddd;
-    margin-top: 20px;
-    padding: 40px;
-}
-.questions-content{
+/* Form quiz */
+.form-quiz {
     display: flex;
-    gap: 25px;
-    padding-top: 0;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.questions-content .group-upload{
-    padding-top: 10px;
+/* Câu hỏi */
+.form-quiz_item {
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
 }
 
-.questions-content .group-upload .label-up{
-    margin-right: 3px;
-    cursor: pointer;
-    color: #9068ff;
-    font-size: 25px;
-    
-}
-
-.questions-content .group-upload .label-up:hover{
-    color: #4400ff;
-}
-
-.questions-content .btn-add{
-    padding-top: 7px;
-}
-
-.questions-content .btn-add .icon-add{
-    font-size: 25px;
-    color: #2596ff;
-    cursor: pointer;
-}
-
-.questions-content .btn-add .icon-add:hover{
-    color: #0989ff;
-}
-
-.questions-content .btn-add .icon-remove{
-    margin-left: 10px;
-    font-size: 25px;
-    color: #e8771c;
-    cursor: pointer;
-}
-
-.questions-content .btn-add .icon-remove:hover{
-    color: #ff7608;
-}
-
-.answer-content{
+.form-quiz_title {
     display: flex;
-    gap: 10px;
-    padding-left: 20px;
-    padding-top: 30px;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+
+/* Số câu hỏi */
+.form-quiz_sentence {
+    font-size: 18px;
+    font-weight: 600;
+    color: #555;
+}
+
+/* Câu hỏi chính */
+.form-quiz_question {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+    margin-top: 5px;
+}
+
+/* Câu trả lời */
+.form-quiz__answer {
+    display: flex;
     align-items: center;
-}
-
-.answer-content .iscorrect{
-    font-size: 20px;
-}
-
-.answer-content .answer-name{
-    width: 60%;
-    margin: 0;
-}
-
-.answer-content .btn-group .icon-add{
-    font-size: 25px;
-    color: #2596ff;
-    cursor: pointer;
-}
-.answer-content .btn-group .icon-add:hover{
-    color: #0989ff;
-}
-
-.answer-content .btn-group .icon-remove{
-    margin-left: 10px;
-    font-size: 25px;
-    color: #e8771c;
+    margin-top: 10px;
     cursor: pointer;
 }
 
-.answer-content .btn-group .icon-remove:hover{
-    color: #ff7608;
+/* Ẩn radio button mặc định */
+.form-quiz__answer input[type="radio"] {
+    display: none; /* Ẩn radio button mặc định */
+}
+
+/* Định dạng cho label */
+.form-quiz__answer label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+    padding-right: 40px; /* Tạo khoảng cách cho tick bên phải */
+    font-size: 16px;
+    color: #333;
+    transition: all 0.3s ease;
+    border: 2px solid #ddd; /* Đường viền cho label */
+    border-radius: 50%; /* Dạng tròn cho radio button */
+    padding: 12px;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px; /* Khoảng cách từ radio button sang label */
+    margin-right: 2%;
+}
+
+/* Tạo hiệu ứng tick khi chọn */
+.form-quiz__answer label::before {
+    content: "";
+    position: absolute;
+    right: 8px; /* Di chuyển tick sang bên phải */
+    top: 8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #07b352; /* Màu của tick */
+    opacity: 0; /* Ẩn tick mặc định */
+    transition: opacity 0.3s ease, background-color 0.3s ease;
+}
+
+/* Thay đổi màu sắc khi người dùng hover */
+.form-quiz__answer input[type="radio"]:hover + label {
+    background-color: #f1f1f1;
+}
+
+/* Khi đã chọn radio button */
+.form-quiz__answer input[type="radio"]:checked + label {
+    color: #fff;
+    background-color: #07b352; /* Màu nền khi chọn */
+    border-color: #07b352; /* Đổi màu border khi chọn */
+}
+
+/* Tạo hiệu ứng tick khi chọn */
+.form-quiz__answer input[type="radio"]:checked + label::before {
+    opacity: 1; /* Hiển thị tick khi chọn */
+    background-color: #fff; /* Màu nền bên trong của tick */
+}
+
+/* Hiệu ứng cho svg tick */
+.form-quiz__answer input[type="radio"]:checked + label::after {
+    content: '\2713'; /* Thêm biểu tượng tick */
+    position: absolute;
+    right: 8px; /* Di chuyển tick sang bên phải */
+    top: 5px;
+    font-size: 18px;
+    color: #07b352; /* Màu của tick */
+    transition: all 0.3s ease;
+}
+
+/* Khi hover trên label đã chọn */
+.form-quiz__answer input[type="radio"]:checked + label:hover {
+    background-color: #059e3c; /* Màu khi hover khi chọn */
 }
 
 
+/* Nút Submit */
+.button-quiz {
+    padding: 12px 30px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #07b352;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
 
-/* End Question-manage */
+.button-quiz:hover {
+    background-color: #059e3c;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .inner-quiz {
+        padding: 15px;
+    }
+
+    .inner-title {
+        font-size: 26px;
+    }
+
+    .form-quiz__answer label {
+        font-size: 14px;
+    }
+
+    .button-quiz {
+        font-size: 16px;
+    }
+}

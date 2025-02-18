@@ -1,6 +1,10 @@
 extends ../../layouts/default.pug 
 include ../../mixins/alert.pug
 block main
+    a(
+            type="button"
+            onClick = "history.back()"
+        )   <i class="fa-solid fa-arrow-left"></i>
     h1(class="mb-4") Cập nhật thông tin cá nhân
     +alert-success(5000)
     +alert-error(5000)

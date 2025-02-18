@@ -3,11 +3,15 @@ include ../../mixins/box-head.pug
 include ../../mixins/product-layout.pug
 block main 
     .container.my-3
-        .row 
+        .row
             .col-12
                 +box-head(pageTitle)
-        .row 
-            a(class="btn btn-primary" href="#" role="button") Đang chờ phê duyệt (#{totalInactive})
+        .row
+            .col-6
+                a(class="mb-5 btn btn-info btn-lg w-100" href="#" role="button") Đang chờ phê duyệt (#{totalInactive})
+            .col-6
+                a(class="mb-5 btn btn-success btn-lg w-100" href="/answers" role="button") Danh sách bài đã luyện tập
+            
         .row
             each order in orders
                 if(order.status == "active")

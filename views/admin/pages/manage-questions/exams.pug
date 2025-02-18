@@ -1,0 +1,11 @@
+extends ../../layouts/default.pug
+
+block main
+    if(role.permissions.includes("manage-exams_view"))
+        div(class="questions-container")  
+            div(class="title") Quản lý đề thi:
+            div(class="form-container")
+                each item in products
+                    a(href=`${prefixAdmin}/manage-questions/exams/${item.slug}`, class="btn btn-product") #{item.title}
+
+        script(src="/admin/js/manage-questions.js")

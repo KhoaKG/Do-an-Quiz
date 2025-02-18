@@ -1,90 +1,55 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const addQuestionBtn = document.getElementById('add-question-btn');
+    const questionsWrapper = document.getElementById('questions-wrapper');
 
-document.addEventListener("DOMContentLoaded", function () {
-    const dropdown = document.querySelector(".questions-container .dropdown")
-    const formLoadQuiz = document.querySelector("#form-load-quiz")
-    const path = formLoadQuiz.getAttribute("data-path")
-    dropdown.addEventListener("change", (e)=>{
-        const quizTitle = e.target.value
-        const action = path + `/${quizTitle}?_method=GET`
-        // Xóa tất cả các thuộc tính selected của các option khác
-        dropdown.querySelectorAll("option").forEach(option => {
-            option.selected = false;
-        });
+    // Lắng nghe sự kiện click nút dấu cộng để thêm câu hỏi
+    addQuestionBtn.addEventListener('click', function() {
+        // Tạo form mới cho câu hỏi và câu trả lời
+        const questionForm = document.createElement('div');
+        questionForm.classList.add('question-form');
 
-        // Tìm option có value là quizTitle và thêm selected vào đó
-        const optionSelected = dropdown.querySelector(`option[value='${quizTitle}']`);
-        optionSelected.selected = true;
+        // Cấu trúc form câu hỏi và câu trả lời, mặc định 4 câu trả lời
+        questionForm.innerHTML = `
+            <div class="form-group">
+                <label>Câu hỏi:</label>
+                <input type="text" class="form-control" name="questions" placeholder="Enter question" required>
+            </div>
+            <div class="form-group">
+                <label>Câu trả lời:</label>
+                <div>
+                    <input type="checkbox" class="form-check-input" name="correctAnswer" value="0">
+                    <input type="text" class="form-control" name="answers" placeholder="Enter answer 1" required>
+                </div>
+                <div>
+                    <input type="checkbox" class="form-check-input" name="correctAnswer" value="1">
+                    <input type="text" class="form-control" name="answers" placeholder="Enter answer 2" required>
+                </div>
+                <div>
+                    <input type="checkbox" class="form-check-input" name="correctAnswer" value="2">
+                    <input type="text" class="form-control" name="answers" placeholder="Enter answer 3" required>
+                </div>
+                <div>
+                    <input type="checkbox" class="form-check-input" name="correctAnswer" value="3">
+                    <input type="text" class="form-control" name="answers" placeholder="Enter answer 4" required>
+                </div>
+            </div>
+        `;
 
-        formLoadQuiz.action = action
-        formLoadQuiz.submit()
-    })
+        // Thêm câu hỏi form vào wrapper
+        questionsWrapper.appendChild(questionForm);
+    });
+
+    // Lắng nghe sự kiện submit form
     
+
     
 });
-// Hàm thêm câu trả lời
-
-const questionContainer = document.querySelector('.questions-container');
-
-if (questionContainer) {
-    // Lấy tất cả các nút thêm câu trả lời
-    const addAnswerButtons = questionContainer.querySelectorAll('.answer-content .btn-group .icon-add');
-
-    // Lấy tất cả các câu hỏi
-    const addQuestionContainers = questionContainer.querySelectorAll('.form-question-answer .questions-content');
-
-    // Xử lý sự kiện khi nhấn nút thêm câu trả lời
-    addAnswerButtons.forEach(add => {
-        const formAddAnswer = document.querySelector("#form-add-answer");
-        const path = formAddAnswer.getAttribute("data-path");
-
-        add.addEventListener("click", () => {
-            // Lấy câu hỏi chứa nút thêm câu trả lời
-            const questionDiv = add.closest(".form-question-answer").querySelector(".questions-content");
-            const indexQuestion = questionDiv ? questionDiv.dataset.index : -1; // Truyền index từ data-index của câu hỏi
-            console.log(questionDiv);
-            
-
-            // Lấy câu trả lời chứa nút thêm câu trả lời
-            const answerDiv = add.closest(".answer-content");
-            const indexAnswer = answerDiv ? answerDiv.dataset.index : -1; // Truyền index từ data-index của câu trả lời
-
-            // Kiểm tra lại giá trị của indexQuestion và indexAnswer
-            console.log("Index của câu hỏi:", indexQuestion);
-            console.log("Index của câu trả lời:", indexAnswer);
-
-            // Lấy giá trị quizTitle từ dropdown
-            const dropdown = document.querySelector(".questions-container .dropdown");
-            const quizTitle = dropdown ? dropdown.value : '';
-
-            // Cập nhật đường dẫn action của form
-            const action = path + `/${quizTitle}/${indexQuestion}/${indexAnswer}?_method=POST`;
-
-            // Cập nhật action của form (nếu cần)
-            formAddAnswer.action = action;
-            formAddAnswer.submit(); // Nếu sẵn sàng thực hiện gửi form
-        });
-    });
-}
 
 
-
-
-
-
-if(questionContainer){
-    const addQuestion = questionContainer.querySelectorAll('.form-question-answer .questions-content .btn-add .icon-add')
-    
-    addQuestion.forEach(add => {
-        const formAddAnswer = document.querySelector("#form-add-question")
-        const path = formAddAnswer.getAttribute("data-path")
-        add.addEventListener("click", ()=>{
-            const indexQuestion = addQuestion.length-1
-            const dropdown = document.querySelector(".questions-container .dropdown")
-            const quizTitle = dropdown.value
-            const action = path + `/${quizTitle}/${indexQuestion}?_method=POST`
-            formAddAnswer.action = action
-            formAddAnswer.submit()
-        })
+const formAddQuestion = document.querySelector('#form-add-question');
+if(formAddQuestion){
+    const buttonSubmit = formAddQuestion.querySelector(".button-submit")
+    buttonSubmit.addEventListener("submit", ()=>{
+        formAddQuestion.submit()
     })
 }
-  

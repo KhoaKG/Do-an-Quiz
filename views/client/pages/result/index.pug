@@ -1,0 +1,97 @@
+//- extends ../../layouts/default.pug
+//- include ../../mixins/box-head.pug
+
+//- block main 
+//-     .inner-quiz
+//-         h2.inner-title Kết quả:
+//-         .form-quiz
+//-             each item, index in dataResult
+//-                 .answer__item(key=item._id)
+//-                     .form-quiz_item(key=item._id)
+//-                         .form-quiz_title
+//-                             .form-quiz_sentence
+//-                                 span #{index + 1}
+//-                             .form-quiz_question
+//-                                 span #{item.question}
+            
+//-                         each itemAns, indexAns in item.answers
+//-                             - var classname = ""
+//-                             - var checked = false
+
+//-                             if item.answer === indexAns
+//-                                 - checked = true
+//-                                 - classname = "result__item--selected "
+
+//-                             if item.correctAnswer === indexAns
+//-                                 - classname += "result__item--result "
+
+//-                             .form-quiz__answer(key=indexAns)
+//-                                 input.check-input(type="radio", checked=checked, disabled)
+//-                                 label(class=classname + (Number(item.correctAnswer) === Number(item.answer) ? "checkbox checkbox-true" : "checkbox checkbox-false"), for=`quiz-${item._id}-${indexAns}`)
+//-                                     svg(viewBox="0 0 22 15" fill="none")
+//-                                         path(d="M1 6.85L8.096677 14L21 1")
+//-                                 span.debug #{item.correctAnswer} - #{item.answer} - #{Number(item.correctAnswer) === Number(item.answer)}
+//-                                 span #{itemAns}
+//-                 // Hiển thị câu có checkbox-true (nếu có)
+//-                 if item.correctAnswer !== null
+//-                     .form-quiz__answer
+//-                         span Câu có đáp án đúng:
+//-                         span #{item.answers[item.correctAnswer]}
+                
+//-             a(href='/answers')
+//-                 button.button-quiz Done
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+
+block main
+    .inner-quiz
+        h2.inner-title Kết quả:
+        .quiz-result
+                .result-header Kết quả bài quiz
+                .result-details
+                    p Tổng số câu: <strong>#{totalQuestions}</strong>
+                    p Số câu trả lời đúng: <strong>#{correctAnswers}</strong>
+                    p Tỉ lệ đúng: <strong>#{(correctAnswers / totalQuestions * 100).toFixed(2)}%</strong>
+        .form-quiz
+            each item, index in dataResult
+                .answer__item(key=item._id)
+                    .form-quiz_item(key=item._id)
+                        .form-quiz_title
+                            .form-quiz_sentence
+                                span #{index + 1}
+                            .form-quiz_question
+                                span #{item.question}
+
+                        each itemAns, indexAns in item.answers
+                            - var classname = ""
+                            - var checked = false
+                            - var isCorrect = (item.correctAnswer === indexAns)
+                            - var isSelected = (item.answer === indexAns)
+                            
+
+                            if isSelected
+                                - checked = true
+                                - classname = "result__item--selected "
+                            
+                            // Lớp cho đáp án đúng
+                            if isCorrect
+                                - classname += "checkbox checkbox-true"
+                            // Lớp cho đáp án sai
+                            if !isCorrect
+                                - classname += "checkbox checkbox-false"
+                            
+                            .form-quiz__answer(key=indexAns)
+                                input.check-input(type="radio", checked=checked, disabled)
+                                label(class=classname, for=`quiz-${item._id}-${indexAns}`)
+                                    svg(viewBox="0 0 22 15" fill="none")
+                                        path(d="M1 6.85L8.096677 14L21 1")
+                                span #{itemAns}
+                                
+
+                        // Nếu câu trả lời sai, hiển thị kết quả đúng
+                        if item.answer !== item.correctAnswer
+                            .form-quiz__answer
+                                span Kết quả đúng: #{item.answers[item.correctAnswer]}
+                 
+            a(href='/answers')
+                button.button-quiz Done

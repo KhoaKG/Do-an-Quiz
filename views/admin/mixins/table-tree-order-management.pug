@@ -47,21 +47,22 @@ mixin table-tree-order(items, level=1)
                     href=`${prefixAdmin}/order-management/detail/${item.id}`
                     class="btn btn-secondary btn-sm"
                     ) Chi tiết đơn hàng
-                //- if(role.permissions.includes("blogs-category_delete"))
-                button(class="btn btn-danger btn-sm m1-1"
-                    data-id=item.id
-                    button-delete
-                ) Xóa
+                if(role.permissions.includes("order-management_delete"))
+                    button(class="btn btn-danger btn-sm m1-1"
+                        data-id=item.id
+                        button-delete
+                    ) Xóa
             td
                 if(item.status == "active")
                     button(class="btn btn-primary btn-sm m1-1"
                     ) Duyệt
                 else 
-                    button(class="btn btn-primary btn-sm m1-1"
-                        data-status= "inactive"
-                        data-id=item.id
-                        button-change-status
-                    ) Duyệt
+                    if(role.permissions.includes("order-management_approve"))
+                        button(class="btn btn-primary btn-sm m1-1"
+                            data-status= "inactive"
+                            data-id=item.id
+                            button-change-status
+                        ) Duyệt
                     
         if item.children && item.children.length > 0
             +table-tree-blogs(item.children,level + 1)

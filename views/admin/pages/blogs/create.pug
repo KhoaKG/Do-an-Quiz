@@ -2,6 +2,10 @@ extends ../../layouts/default.pug
 include ../../mixins/select-tree.pug
 block main
     if(role.permissions.includes("blogs_create"))
+        a(
+            type="button"
+            onClick = "history.back()"
+        )   <i class="fa-solid fa-arrow-left"></i>
         h1(class="mb-4") Thêm mới bài viết
             form(action=`${prefixAdmin}/blogs/create`
                 id="form-create-product" 

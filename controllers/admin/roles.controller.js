@@ -43,7 +43,7 @@ module.exports.createPost = async (req, res) => {
     }
     const records = new Role(req.body)
     await records.save()
-    res.redirect("back")
+    res.redirect("/admin/roles")
 }
 // [GET]: /admin/roles/edit/:id
 module.exports.edit = async (req, res) => {

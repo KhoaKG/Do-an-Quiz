@@ -176,6 +176,57 @@ block main
                         each item in records
                             td(class= "text-center")
                                 input(type="checkbox")
+                    tr
+                        //- Quản lý đơn hàng
+                        td(colspan="4")
+                            b   Quản lý đơn hàng
+                    tr(data-name="order-management_view")
+                        td Xem
+                        each item in records
+                            td(class= "text-center")
+                                input(type="checkbox")
+                    tr(data-name="order-management_approve")
+                        td Duyệt đơn hàng
+                        each item in records
+                            td(class= "text-center")
+                                input(type="checkbox")
+                    tr(data-name="order-management_delete")
+                        td Xoá
+                        each item in records
+                            td(class= "text-center")
+                                input(type="checkbox")
+                    tr
+                        //- Quản lý câu hỏi
+                        td(colspan="4")
+                            b   Quản lý câu hỏi
+                    tr(data-name="manage-questions_view")
+                        td Xem 
+                        each item in records
+                            td(class= "text-center")
+                                input(type="checkbox")
+                    tr(data-name="manage-questions_create")
+                        td Thêm
+                        each item in records
+                            td(class= "text-center")
+                                input(type="checkbox")
+                    tr
+                        //- Quản lý đề thi
+                        td(colspan="4")
+                            b   Quản lý đề thi
+                    tr(data-name="manage-exams_view")
+                        td Xem 
+                        each item in records
+                            td(class= "text-center")
+                                input(type="checkbox")
+                    tr
+                        //- Cài đặt chung
+                        td(colspan="4")
+                            b   Cài đặt chung
+                    tr(data-name="general-settings_edit")
+                        td Chỉnh sửa
+                        each item in records
+                            td(class= "text-center")
+                                input(type="checkbox")
 
         else
             button  
