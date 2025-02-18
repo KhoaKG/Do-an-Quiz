@@ -1,31 +1,36 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
 block main 
-    div(class="inner-quiz")
-        <h2 class="inner-title">BÀI QUIZ CHỦ ĐỀ: #{title}</h2>
+    if(dataQuestion.length > 0)
+        div(class="inner-quiz")
+            <h2 class="inner-title">BÀI QUIZ CHỦ ĐỀ: #{title}</h2>
+            div(class="form-quiz")
+                form(action=`/quiz/answers/${quizTitle}?_method=POST`
+                            id="form-answers" 
+                            method="POST"
+                        )
+                    each item,index in dataQuestion
+                        div(class="form-quiz_item" key=item.id)
+                            div(class="form-quiz_title")
+                                div(class="form-quiz_sentence")
+                                    span #{index + 1}
+                                div(class="form-quiz_question")
+                                    span #{item.question}
+                            if(item.answers)
+                                each itemAns,indexAns in item.answers
+                                    div(class="form-quiz__answer" key=indexAns)
+                                        input(type="radio" name=item.id value=indexAns id=`quiz-${item.id}-${indexAns}` class="check-input" )
+                                        label(htmlFor=`quiz-${item.id}-${indexAns}` class="checkbox")
+                                            <svg viewBox="0 0 22 15" fill="none">
+                                                <path d="M1 6.85L8.096677 14L21 1" />
+                                            </svg>
+                                        span #{itemAns}
 
-        div(class="form-quiz")
-            form(action=`/quiz/answers/${quizTitle}?_method=POST`
-                        id="form-answers" 
-                        method="POST"
-                    )
-                each item,index in dataQuestion
-                    div(class="form-quiz_item" key=item.id)
-                        div(class="form-quiz_title")
-                            div(class="form-quiz_sentence")
-                                span #{index + 1}
-                            div(class="form-quiz_question")
-                                span #{item.question}
-                        if(item.answers)
-                            each itemAns,indexAns in item.answers
-                                div(class="form-quiz__answer" key=indexAns)
-                                    input(type="radio" name=item.id value=indexAns id=`quiz-${item.id}-${indexAns}` class="check-input" )
-                                    label(htmlFor=`quiz-${item.id}-${indexAns}` class="checkbox")
-                                        <svg viewBox="0 0 22 15" fill="none">
-                                            <path d="M1 6.85L8.096677 14L21 1" />
-                                        </svg>
-                                    span #{itemAns}
-
-                button(type="submit" class="button-quiz") Submit 
+                    button(type="submit" class="button-quiz") Submit 
+    else
+        h1 Chưa cập nhật câu hỏi
+        button(
+            onClick = "history.back()"
+        )   Trở lại
 
 

@@ -17,11 +17,12 @@ block main
                 if(order.status == "active")
                     each item in order.products
                         .col-4.mb-3 
-                            .product-item
-                                .inner-image
+                            .cart-item
+                                .cart-item-image
                                     img(src=item.productInfo.thumbnail, alt=item.productInfo.title)
-                                .inner-content
-                                    h3.inner-title 
-                                        a(href=`/quiz/${item.productInfo.slug}`) #{item.productInfo.title}
+                                .cart-item-title
+                                    #{item.productInfo.title}
+                                .cart-item-play
+                                    a(type='submit' href=`/quiz/${item.productInfo.slug}`) <i class="fa-solid fa-arrow-right"></i>
         
 

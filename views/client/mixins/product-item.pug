@@ -14,3 +14,19 @@ mixin product-item(item)
                     .inner-price-old #{item.price}$
                 if(item.discountPercentage)
                     .inner-discount #{item.discountPercentage}%
+mixin cart-item(item)
+    .cart-item
+        .cart-item-image
+            img(src=item.thumbnail)
+            if(item.featured == "1")
+                .inner-featured Nổi bật
+        .cart-item-title
+            #{item.title}
+        if(item.priceNew)
+            .inner-price-new #{item.priceNew}$
+        if(item.price)
+            .inner-price-old #{item.price}$
+        if(item.discountPercentage)
+            .inner-discount #{item.discountPercentage}%
+        .cart-item-play
+            a(type='submit' href=`/products/detail/${item.slug}`) <i class="fa-solid fa-arrow-right"></i>

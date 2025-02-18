@@ -13,27 +13,28 @@
 extends ../../layouts/default.pug
 include ../../mixins/moment.pug
 block main
-    .home
-        .inner-content.no-select
-            h1 Danh sách bài đã luyện tập
+    .container 
+        .home
+            .inner-content.no-select
+                h1 Danh sách bài đã luyện tập
 
-        .inner-box.no-select
-            table.table
-                thead
-                    tr
-                        th Tiêu đề bài
-                        th Người làm
-                        th Ngày làm
-                        th Chi tiết
-                tbody
-                    each item in dataAnswers
+            .inner-box.no-select
+                table.table
+                    thead
                         tr
-                            td #{item.title}
-                            td #{item.accountFullname}
-                            td 
-                                +formatDateTime(item.createdBy.createAt)
-                            td
-                                a(href=`/result/${item._id}`) Xem kết quả
+                            th Tiêu đề bài
+                            th Người làm
+                            th Ngày làm
+                            th Chi tiết
+                    tbody
+                        each item in dataAnswers
+                            tr
+                                td #{item.title}
+                                td #{item.accountFullname}
+                                td 
+                                    +formatDateTime(item.createdBy.createAt)
+                                td
+                                    a(href=`/result/${item._id}`) Xem kết quả   
 
 
 

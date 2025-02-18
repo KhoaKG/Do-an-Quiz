@@ -18,7 +18,6 @@ exports.addQuestion = async (req, res) => {
         let { type, questions, answers, correctAnswer } = req.body;
         if (!Array.isArray(questions)) {
             questions = [questions];  // Chuyển 'questions' thành một mảng
-            console.log('Questions đã được chuyển thành mảng:', questions);
         }
         // Kiểm tra nếu dữ liệu không đầy đủ
         if (!questions || !answers || !correctAnswer) {
@@ -32,7 +31,6 @@ exports.addQuestion = async (req, res) => {
             // Xử lý câu hỏi
             const question = questions[i];
             const answerSet = answers.slice(i * 4, (i + 1) * 4);  // Mỗi câu hỏi có 4 câu trả lời
-            console.log(answerSet.length);
             
             // Nếu thiếu câu trả lời, có thể xử lý thêm hoặc trả về lỗi
             if (answerSet.length < 1) {
@@ -40,7 +38,6 @@ exports.addQuestion = async (req, res) => {
             }
 
             let correctAnswerIndex = parseInt(correctAnswer[i]);  // Chuyển correctAnswer thành số nguyên
-            console.log(correctAnswerIndex);
             if (isNaN(correctAnswerIndex) || correctAnswerIndex < 0 || correctAnswerIndex > 3) {
                 return res.status(400).json({ success: false, message: 'Chỉ số câu trả lời đúng không hợp lệ' });
             }
@@ -71,7 +68,6 @@ module.exports.exams = async (req, res) => {
         deleted: false,
         status: "active"
     });
-    console.log(products);
     
     res.render("admin/pages/manage-questions/exams", {
         pageTitle: "Trang quản lý đề thi",

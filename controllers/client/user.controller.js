@@ -183,9 +183,7 @@ module.exports.info = async (req, res) => {
 }
 
 
-module.exports.myCourse = async (req, res)=>{
-	console.log(req.cookies.tokenUser);
-	
+module.exports.myCourse = async (req, res)=>{	
     const orders = await Order.find({
         user_id: req.cookies.tokenUser
     })

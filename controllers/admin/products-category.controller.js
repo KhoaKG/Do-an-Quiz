@@ -101,7 +101,7 @@ module.exports.editPatch = async (req, res) => {
     const id = req.params.id
     
     req.body.position = parseInt(req.body.position)
-    
+
     try {
         const updatedBy = {
             account_id: res.locals.user.id,

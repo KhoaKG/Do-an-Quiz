@@ -54,44 +54,45 @@ block main
                     p Tỉ lệ đúng: <strong>#{(correctAnswers / totalQuestions * 100).toFixed(2)}%</strong>
         .form-quiz
             each item, index in dataResult
-                .answer__item(key=item._id)
-                    .form-quiz_item(key=item._id)
-                        .form-quiz_title
-                            .form-quiz_sentence
-                                span #{index + 1}
-                            .form-quiz_question
-                                span #{item.question}
+                if (item.answer != null) 
+                    .answer__item(key=item._id)
+                        .form-quiz_item(key=item._id)
+                            .form-quiz_title
+                                .form-quiz_sentence
+                                    span #{index + 1}
+                                .form-quiz_question
+                                    span #{item.question}
 
-                        each itemAns, indexAns in item.answers
-                            - var classname = ""
-                            - var checked = false
-                            - var isCorrect = (item.correctAnswer === indexAns)
-                            - var isSelected = (item.answer === indexAns)
-                            
-
-                            if isSelected
-                                - checked = true
-                                - classname = "result__item--selected "
-                            
-                            // Lớp cho đáp án đúng
-                            if isCorrect
-                                - classname += "checkbox checkbox-true"
-                            // Lớp cho đáp án sai
-                            if !isCorrect
-                                - classname += "checkbox checkbox-false"
-                            
-                            .form-quiz__answer(key=indexAns)
-                                input.check-input(type="radio", checked=checked, disabled)
-                                label(class=classname, for=`quiz-${item._id}-${indexAns}`)
-                                    svg(viewBox="0 0 22 15" fill="none")
-                                        path(d="M1 6.85L8.096677 14L21 1")
-                                span #{itemAns}
+                            each itemAns, indexAns in item.answers
+                                - var classname = ""
+                                - var checked = false
+                                - var isCorrect = (item.correctAnswer === indexAns)
+                                - var isSelected = (item.answer === indexAns)
                                 
 
-                        // Nếu câu trả lời sai, hiển thị kết quả đúng
-                        if item.answer !== item.correctAnswer
-                            .form-quiz__answer
-                                span Kết quả đúng: #{item.answers[item.correctAnswer]}
+                                if isSelected
+                                    - checked = true
+                                    - classname = "result__item--selected "
+                                
+                                // Lớp cho đáp án đúng
+                                if isCorrect
+                                    - classname += "checkbox checkbox-true"
+                                // Lớp cho đáp án sai
+                                if !isCorrect
+                                    - classname += "checkbox checkbox-false"
+                                
+                                .form-quiz__answer(key=indexAns)
+                                    input.check-input(type="radio", checked=checked, disabled)
+                                    label(class=classname, for=`quiz-${item._id}-${indexAns}`)
+                                        svg(viewBox="0 0 22 15" fill="none")
+                                            path(d="M1 6.85L8.096677 14L21 1")
+                                    span #{itemAns}
+                                    
+
+                            // Nếu câu trả lời sai, hiển thị kết quả đúng
+                            if item.answer !== item.correctAnswer
+                                .form-quiz__answer
+                                    span.font-weight-bold Kết quả đúng: #{item.answers[item.correctAnswer]}
                  
             a(href='/answers')
                 button.button-quiz Done

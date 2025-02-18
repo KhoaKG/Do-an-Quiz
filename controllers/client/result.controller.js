@@ -18,13 +18,17 @@ module.exports.index = async (req, res) => {
         };
     });
     let correctAnswers = 0;
-    let totalQuestions = resultFinal.length
+    let totalQuestions = 0;
     // Tính số câu đúng và sai từ dataResult
     resultFinal.forEach(item => {
         if(item.correctAnswer == item.answer){
             correctAnswers++
         }
+        if(item.answer!=null){
+            totalQuestions++
+        }
     });
+    console.log(resultFinal);
     
     
 
