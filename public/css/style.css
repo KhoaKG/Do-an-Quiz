@@ -820,6 +820,11 @@
     color: black;
 }
 
+.cart-item-play a i{
+    font-family: 'Font Awesome 5 Free' !important;
+}
+
+
 .cart-item-play a:hover{
     display: inline-flex;
     border-radius: 50%;
