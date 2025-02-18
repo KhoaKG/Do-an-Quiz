@@ -26,12 +26,6 @@ block main
                 )
             div(class="form-group")
                 label(for="parent_id") Danh mục cha 
-                //- input(
-                //-     type="text" 
-                //-     class="form-control" 
-                //-     id="parent_id" 
-                //-     name="parent_id"    
-                //- )
                 select(
                     name="parent_id"
                     id="parent_id"
@@ -42,14 +36,12 @@ block main
                         +select-tree(records, 1, data.parent_id)
             div(class="form-group")
                 label(for="desc") Mô tả 
-                textarea( 
-                    type="text" 
-                    class="form-control" 
-                    id="desc" 
-                    name="description" 
-                    rows="5" 
-                    textarea-mce
-                ) #{data.description}
+                textarea(
+                class="form-control" 
+                id="desc" 
+                name="description" 
+                rows="5"
+            ) #{data.description}
             div(
                 class="form-group"
                 upload-image

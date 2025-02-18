@@ -88,6 +88,7 @@ module.exports.edit = async (req, res) => {
         deleted: false,
     })
     const newRecords = createTreeHelper.tree(records)
+    console.log(data);
     // End Lấy ra data để gán cho danh mục cha
     res.render("admin/pages/products-category/edit",{
         pageTitle: "Chỉnh sửa danh mục sản phẩm",
@@ -98,10 +99,8 @@ module.exports.edit = async (req, res) => {
 
 // [PATCH]: /admin/products-category/edit/:id
 module.exports.editPatch = async (req, res) => {
-    const id = req.params.id
-    
+    const  id  = req.params.id;
     req.body.position = parseInt(req.body.position)
-
     try {
         const updatedBy = {
             account_id: res.locals.user.id,

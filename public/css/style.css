@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@491&display=swap');
 
 * {
-    font-family: "Raleway", serif ;
+    font-family: "Raleway", serif !important;
     font-optical-sizing: auto;
     font-weight: 491;
     font-style: normal;
