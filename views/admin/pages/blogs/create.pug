@@ -10,6 +10,7 @@ block main
             form(action=`${prefixAdmin}/blogs/create`
                 id="form-create-product" 
                 method="POST"
+                enctype="multipart/form-data"
             )
                 div(class="form-group")
                     label(for="title") Tiêu đề 
@@ -39,6 +40,20 @@ block main
                     name="description" 
                     rows="5"
                     )
+                div(
+                    class="form-group"
+                    upload-image
+                )
+                    label(for="thumbnail") Ảnh
+                    input(
+                    type="file"
+                    class="form-control-file"   
+                    id="thumbnail" 
+                    name="thumbnail"
+                    accept = "image/*"
+                    upload-image-input
+                    )
+                    img(upload-image-preview  src="" class="image-preview")
                 div(class="form-group")
                     label(for="position") Vị trí 
                     input(

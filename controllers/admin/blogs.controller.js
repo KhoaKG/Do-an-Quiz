@@ -196,6 +196,9 @@ module.exports.edit = async (req,res) =>{
 module.exports.editPatch = async (req,res) =>{
     const id = req.params.id
     req.body.position = parseInt(req.body.position)
+    if(req.file){
+        req.flash("success", `Cập nhật thành công`)
+    }
     try {
         const updatedBy = {
             account_id: res.locals.user.id,
@@ -208,9 +211,8 @@ module.exports.editPatch = async (req,res) =>{
     } catch (error) {
         req.flash("error", `Cập nhật thất bại`)
     }
-    res.redirect(`${systemConfig.prefixAdmin}/blogs`)
+    res.redirect(`${systemConfig.prefixAdmin}/blogs`)  
 }
-
 // [GET]: /admin/products/detail/:id
 module.exports.detail = async (req,res) =>{
     try {

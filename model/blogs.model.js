@@ -11,6 +11,7 @@ const blogsSchema = new mongoose.Schema({
     description: String,
     status: String,
     position: Number,
+    thumbnail: String,
     deleted: {
         type: Boolean,
         default: false

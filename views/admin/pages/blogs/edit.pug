@@ -10,6 +10,7 @@ block main
                 form(action=`${prefixAdmin}/blogs/edit/${product.id}?_method=PATCH`
                 id="form-edit-product" 
                 method="POST"
+                enctype="multipart/form-data"
             )
                     div(class="form-group")
                         label(for="title") Tiêu đề 
@@ -40,6 +41,20 @@ block main
                         name="description" 
                         rows="5"
                         ) #{product.description}
+                    div(
+                        class="form-group"
+                        upload-image
+                    )
+                        label(for="thumbnail") Ảnh
+                        input(
+                        type="file"
+                        class="form-control-file"   
+                        id="thumbnail" 
+                        name="thumbnail"
+                        accept = "image/*"
+                        upload-image-input
+                        )
+                        img(upload-image-preview  src=product.thumbnail class="image-preview")
                     div(class="form-group")
                         label(for="position") Vị trí 
                         input(
@@ -51,6 +66,7 @@ block main
                         min="1"
                         value = product.position
                         )
+                    
                     div(class="form-group form-check form-check-inline")
                         input( 
                             type="radio" 

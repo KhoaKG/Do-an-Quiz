@@ -58,6 +58,9 @@ global._io = io
 
 // End
 
+var path = require('path');
+app.use('/tinymce', express.static(path.join(__dirname, 'node_modules', 'tinymce')));
+
 
 const route = require("./routes/client/index.route")
 route(app)
