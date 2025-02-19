@@ -56,7 +56,8 @@ module.exports.category = async (req, res) => {
 
     const blogs = await Blog.find({
         blog_category_id: {$in: [category.id, ...listSubCategoryId]},
-        deleted: false
+        deleted: false,
+        status: "active"
     }).sort({position: "desc"})
 
     res.render("client/pages/blogs/index",{
