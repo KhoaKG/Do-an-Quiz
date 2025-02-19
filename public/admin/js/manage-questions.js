@@ -10,27 +10,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Cấu trúc form câu hỏi và câu trả lời, mặc định 4 câu trả lời
         questionForm.innerHTML = `
-            <div class="form-group">
-                <label>Câu hỏi:</label>
-                <input type="text" class="form-control" name="questions" placeholder="Enter question" required>
-            </div>
-            <div class="form-group">
-                <label>Câu trả lời:</label>
-                <div>
-                    <input type="checkbox" class="form-check-input" name="correctAnswer" value="0">
-                    <input type="text" class="form-control" name="answers" placeholder="Enter answer 1" required>
+            <div class="custom-form">
+                <div class="form-group">
+                    <label>Câu hỏi:</label>
+                    <input type="text" class="form-control" name="questions" placeholder="Enter question" required>
                 </div>
-                <div>
-                    <input type="checkbox" class="form-check-input" name="correctAnswer" value="1">
-                    <input type="text" class="form-control" name="answers" placeholder="Enter answer 2" required>
-                </div>
-                <div>
-                    <input type="checkbox" class="form-check-input" name="correctAnswer" value="2">
-                    <input type="text" class="form-control" name="answers" placeholder="Enter answer 3" required>
-                </div>
-                <div>
-                    <input type="checkbox" class="form-check-input" name="correctAnswer" value="3">
-                    <input type="text" class="form-control" name="answers" placeholder="Enter answer 4" required>
+                <div class="form-group">
+                    <label>Câu trả lời:</label>
+                    <div>
+                        <input type="checkbox" class="form-check-input" name="correctAnswer" value="0">
+                        <input type="text" class="form-control" name="answers" placeholder="Enter answer 1" required>
+                    </div>
+                    <div>
+                        <input type="checkbox" class="form-check-input" name="correctAnswer" value="1">
+                        <input type="text" class="form-control" name="answers" placeholder="Enter answer 2" required>
+                    </div>
+                    <div>
+                        <input type="checkbox" class="form-check-input" name="correctAnswer" value="2">
+                        <input type="text" class="form-control" name="answers" placeholder="Enter answer 3" required>
+                    </div>
+                    <div>
+                        <input type="checkbox" class="form-check-input" name="correctAnswer" value="3">
+                        <input type="text" class="form-control" name="answers" placeholder="Enter answer 4" required>
+                    </div>
                 </div>
             </div>
         `;

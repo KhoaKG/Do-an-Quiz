@@ -5,6 +5,7 @@ block main
         a(
             type="button"
             onClick = "history.back()"
+            id="button-go-back"
         )   <i class="fa-solid fa-arrow-left"></i>
         h1(class="mb-4") Chỉnh sửa bài viết
                 form(action=`${prefixAdmin}/blogs/edit/${product.id}?_method=PATCH`

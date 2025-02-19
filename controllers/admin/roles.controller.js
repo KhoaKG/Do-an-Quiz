@@ -1,5 +1,6 @@
 const Role = require("../../model/roles.model")
 const Account = require("../../model/accounts.model")
+const systemConfig = require("../../config/system")
 // [GET]: /admin/roles
 module.exports.index = async (req, res) => {
     let find ={
@@ -43,7 +44,7 @@ module.exports.createPost = async (req, res) => {
     }
     const records = new Role(req.body)
     await records.save()
-    res.redirect("/admin/roles")
+    res.redirect(`${systemConfig.prefixAdmin}/roles`)
 }
 // [GET]: /admin/roles/edit/:id
 module.exports.edit = async (req, res) => {
@@ -74,7 +75,7 @@ module.exports.editPatch = async (req, res) => {
         ...req.body,
         $push: {updatedBy: updatedBy}
     })
-    res.redirect(`back`)
+    res.redirect(`${systemConfig.prefixAdmin}/roles`)
 }
 
 // [GET]: /admin/roles/permissions

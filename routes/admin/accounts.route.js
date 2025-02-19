@@ -26,4 +26,8 @@ router.patch('/edit/:id',
     controller.editPatch
 )
 
+router.patch('/change-status/:status/:id', controller.changeStatus)
+
+router.get('/detail/:id', controller.detail)
+
 module.exports = router

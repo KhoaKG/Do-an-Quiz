@@ -44,13 +44,17 @@ block main
                                             a(
                                                 href="javascript:;" 
                                                 class="badge badge-success" 
-                                                data-status="active"
+                                                data-id=item.id
+                                                data-status=item.status
+                                                button-change-status
                                             ) Hoạt động
                                         else
                                             a(
                                                 href="javascript:;" 
-                                                class="badge badge-success" 
-                                                data-status="active"
+                                                class="badge badge-danger" 
+                                                data-id=item.id
+                                                data-status=item.status
+                                                button-change-status
                                             ) Dừng Hoạt động
                                     else 
                                         if(item.status == "active")
@@ -65,8 +69,8 @@ block main
                                             ) Dừng hoạt động
                                 td(style="display: flex; gap: 5px")
                                     a(
-                                    class="btn btn-secondary btn-sm" 
-                                    href= `${prefixAdmin}/accounts/detail/${item.id}`
+                                        class="btn btn-secondary btn-sm" 
+                                        href= `${prefixAdmin}/accounts/detail/${item.id}`
                                     ) Chi tiết
                                     if(role.permissions.includes("accounts_edit"))
                                         a(
@@ -77,3 +81,8 @@ block main
                                         button(
                                             class="btn btn-danger btn-sm m1-1"
                                         ) Xoá
+        form(action=""
+            method="POST"
+            id="form-change-status"
+            data-path=`${prefixAdmin}/accounts/change-status`
+        ) 

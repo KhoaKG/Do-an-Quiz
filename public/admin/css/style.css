@@ -328,3 +328,115 @@ header .inner-logo a {
         font-size: 16px;
     }
 }
+
+#questions-wrapper{
+    margin-left: 20px;
+}
+
+/* Giới hạn phạm vi CSS trong form này */
+.custom-form {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Tiêu đề label */
+/* Định dạng lại label */
+.custom-form .form-group label {
+    font-weight: 700;
+    font-size: 15px;
+    color: #222;
+    display: block;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    position: relative;
+    padding-left: 5px;
+}
+
+/* Hiệu ứng thanh ngang bên trái label */
+.custom-form .form-group label::before {
+    content: "";
+    position: absolute;
+    left: -5px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 14px;
+    background: #007bff;
+    border-radius: 2px;
+}
+
+/* .custom-form .form-group label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 6px;
+    display: block;
+} */
+
+/* Ô nhập câu hỏi */
+.custom-form .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: 0.3s ease-in-out;
+}
+
+.custom-form .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.2);
+    outline: none;
+}
+
+/* Căn chỉnh câu trả lời */
+.custom-form .form-group > div {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f9f9f9;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    transition: 0.3s;
+    margin-bottom: 8px;
+}
+
+.custom-form .form-group > div:hover {
+    background: #f1f1f1;
+}
+
+/* Checkbox chỉnh đẹp hơn */
+.custom-form .form-check-input {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #007bff;
+}
+
+/* Nút submit */
+.custom-form button {
+    width: 100%;
+    padding: 12px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.custom-form button:hover {
+    background: #0056b3;
+}
+#button-go-back i{
+    font-family: 'Font Awesome 5 Free' !important;
+}

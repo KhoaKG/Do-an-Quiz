@@ -8,7 +8,7 @@ const Cart = require("../../model/cart.model")
 const Order = require("../../model/order.model")
 const Product = require("../../model/products.model")
 const productsHelper = require("../../helper/products")
-
+const Answers = require("../../model/answer.model")
 module.exports.register = async (req, res) => {
     res.render("client/pages/user/register", {
     	pageTitle: "Đăng ký tài khoản",
@@ -105,7 +105,7 @@ module.exports.forgotPasswordPost = async (req, res) => {
 	const objectForgotPassword = {
     	email: email,
     	otp: otp,
-        expireAt: Date.now()
+		expireAt: new Date(Date.now() + 180 * 1000)  // Đặt thời gian hết hạn
 	}
  
 	const forgotPassword = new ForgotPassword(objectForgotPassword)
@@ -177,8 +177,75 @@ module.exports.resetPasswordPost = async (req, res) => {
 }
 
 module.exports.info = async (req, res) => {
+	const orders = await Order.find({
+        user_id: req.cookies.tokenUser
+    })
+	let totalInactive = 0
+	let totalActive = 0
+	for (const order of orders) {
+		for (const product of order.products) {
+			const productInfo = await Product.findOne({
+				_id: product.product_id
+			})
+	
+			product.productInfo = productInfo
+		}
+		if(order.status == "inactive"){
+			for (const product of order.products) {
+				totalInactive += product.quantity
+			}
+		}else{
+			for (const product of order.products) {
+				totalActive += product.quantity
+			}
+		}
+    }
+	const cart = await Cart.findOne({
+		_id: req.cookies.cartId
+	})
+	cart.totalQuantity = cart.products.reduce((sum,item)=> sum + item.quantity, 0)
+
+	let totalQuiz = 0
+        for (const order of orders) {
+            for (const product of order.products) {
+                totalQuiz += product.quantity
+            }
+        }
+	const tokenUser = req.cookies.tokenUser
+	const statistic = {
+        cart: {
+ 	       total: 0,
+    	},
+        orders: {
+            total: 0,
+    	},
+        totalInactive: {
+            total: 0,
+			totalInactive: 0,
+			totalActive: 0
+    	},
+		answers:{
+			total: 0
+		}
+	}
+    statistic.cart.total = cart ? cart.totalQuantity : "0"
+ 
+    statistic.orders.total = await Order.countDocuments({
+        user_id: req.cookies.tokenUser
+	})
+
+	statistic.answers.total = await Answers.countDocuments({
+        tokenUser: tokenUser
+    })
+
+	
+	statistic.totalInactive.total = totalQuiz
+    statistic.totalInactive.totalInactive = totalInactive
+	statistic.totalInactive.totalActive = totalActive
+	
     res.render("client/pages/user/info", {
     	pageTitle: "Thông tin tài khoản",
+		statistic: statistic
 	})
 }
 

@@ -5,6 +5,7 @@ block main
         a(
             type="button"
             onClick = "history.back()"
+            id="button-go-back"
         )   <i class="fa-solid fa-arrow-left"></i>
         h1(class="mb-4") Sửa tài khoản
         +alert-error(5000)
@@ -103,7 +104,7 @@ block main
                     button(
                         type="submit"
                         class="btn btn-primary"
-                    ) Tạo mới
+                    ) Cập nhật
         else 
             p Vui lòng tạo nhóm quyền trước khi cập nhật tài khoản
             p

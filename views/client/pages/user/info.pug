@@ -1,10 +1,36 @@
 extends ../../layouts/default.pug
 include ../../mixins/box-head.pug
- 
 block main
-    .container.my-3
+    .container.my-3.account-info
         .row
             .col-12
                 +box-head("Thông tin tài khoản")
-        
-        div #{user}
+ 
+        .row.mt-4
+            .col-12
+                .card.mb-4
+                    .card-header 
+                        .cart-body
+                            if(user.fullname)
+                            p Họ tên: <b>#{user.fullname}</b>
+                            if(user.email)
+                            p Email: <b>#{user.email}</b>
+            .col-6
+                .card.mb-4  
+                    .card-header Quiz của tôi
+                    .card-body
+                        p Số lượng: <b>#{statistic.totalInactive.total}</b>
+                        p Đã mua: <b>#{statistic.totalInactive.totalActive}</b>
+                        p Đang chờ duyệt: <b>#{statistic.totalInactive.totalInactive}</b>
+
+            .col-6
+                .card.mb-4
+                    .card-header Giỏ hàng
+                    .card-body
+                        p Số lượng: <b>#{statistic.cart.total}</b>
+
+            .col-6
+                .card.mb-4
+                    .card-header Số lượng Quiz đã làm
+                    .card-body
+                        p Số lượng: <b>#{statistic.answers.total}</b>

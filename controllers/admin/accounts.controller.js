@@ -94,6 +94,26 @@ module.exports.editPatch = async (req, res) => {
     
         req.flash("success", "Cập nhật tài khoản thành công!")
     }    
+    res.redirect(`${systemConfig.prefixAdmin}/accounts`)
+}
+
+module.exports.changeStatus = async (req, res)=>{
+    const status = req.params.status
+    const id = req.params.id
+    const updatedBy = {
+        account_id: res.locals.user.id,
+        updateAt: new Date()
+    }
+    await Account.updateOne({_id: id},{status: status, $push: {updatedBy: updatedBy}})
+    req.flash("success", "Cập nhật status thành công")
     res.redirect("back")
 }
 
+module.exports.detail =async (req, res) => {
+    const id = req.params.id
+    const user = await Account.findOne({_id: id})
+    res.render("admin/pages/accounts/detail",{
+        pageTitle: "Trang chi tiết",
+        user: user
+    })
+}

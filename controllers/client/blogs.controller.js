@@ -6,7 +6,8 @@ const productsCategoryHelper = require("../../helper/products-category")
 const blogsCategoryHelper = require("../../helper/blogs-category")
 module.exports.index = async (req, res) => {
     let find = {
-        deleted: false
+        deleted: false,
+        status: "active"
     }
     const blogs = await Blog.find(find)
 
