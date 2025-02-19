@@ -3,7 +3,8 @@ const createTreeHelper = require("../../helper/createTree")
 const BlogsCategory = require("../../model/blogs-category.model")
 module.exports.category = async (req,res,next) =>{
     const productsCategory = await ProductsCategory.find({
-        deleted: false
+        deleted: false,
+        status: "active"
     })
     const newProductsCategory = createTreeHelper.tree(productsCategory)
     res.locals.layoutProductsCategory = newProductsCategory
@@ -13,7 +14,8 @@ module.exports.category = async (req,res,next) =>{
 
 module.exports.categoryBlogs = async (req,res,next) =>{
     const blogsCategory = await BlogsCategory.find({
-        deleted: false
+        deleted: false,
+        status: "active"
     })
     const newBlogsCategory = createTreeHelper.tree(blogsCategory)
     res.locals.layoutBlogsCategory = newBlogsCategory
